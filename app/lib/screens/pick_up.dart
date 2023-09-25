@@ -1,7 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class PickUpScreen extends StatelessWidget {
+class PickUpScreen extends StatefulWidget {
   const PickUpScreen({super.key});
+
+  @override
+  State<PickUpScreen> createState() => _PickUpScreenState();
+}
+
+class _PickUpScreenState extends State<PickUpScreen> {
+  List<Map<String, dynamic>> cars = [];
+  bool isRefreshing = false;
+
+  Future<void> getCars() async {
+    final response = await http.get(Uri.parse('http://127.0.0.1:5000/cars'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        cars = List<Map<String, dynamic>>.from(json.decode(response.body));
+      });
+    } else {
+      // Handle errors here
+      print('Failed to fetch cars: ${response.statusCode}');
+    }
+  }
+
+  Future<void> onRefresh() async {
+    setState(() {
+      isRefreshing = true;
+    });
+
+    await getCars();
+
+    setState(() {
+      isRefreshing = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCars();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +67,23 @@ class PickUpScreen extends StatelessWidget {
                 child: Text(
                   'PickUp Screen',
                   style: TextStyle(fontSize: 24),
+                ),
+              ),
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: onRefresh,
+                child: ListView.builder(
+                  itemCount: cars.length,
+                  itemBuilder: (context, index) {
+                    final car = cars[index];
+                    print(car);
+                    return ListTile(
+                      title: Text(car['licencePlate'].toString() ?? '--'),
+                      subtitle: Text(car['name'].toString() ?? '---'),
+                      // Add more fields here as needed
+                    );
+                  },
                 ),
               ),
             ),
