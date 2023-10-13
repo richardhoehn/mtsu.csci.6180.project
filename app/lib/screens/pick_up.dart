@@ -49,7 +49,9 @@ class _PickUpScreenState extends State<PickUpScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(child: Text('Valet Buddy')),
+        centerTitle: true,
+        title: Image.asset('assets/images/logo-square-white.png', fit: BoxFit.contain, height: 36,),
+        toolbarHeight: 55,
         leading: IconButton(
           icon: Icon(Icons.arrow_back), // You can use any icon you prefer
           onPressed: () {

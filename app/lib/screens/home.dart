@@ -10,7 +10,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Center(child: Text('Valet Buddy')),
+        title: Image.asset('assets/images/logo-with-text-white.png', fit: BoxFit.contain, height: 100,),
+        toolbarHeight: 120,
       ),
       body: Center(
         child: Column(
@@ -18,10 +19,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 100,
               child: Center(
-                child: Text(
-                  'Home Screen',
-                  style: TextStyle(fontSize: 24),
-                ),
+                child: Text('Welcome to Valet Buddy!', style: TextStyle(fontSize: 30),),
               ),
             ),
             AspectRatio(
