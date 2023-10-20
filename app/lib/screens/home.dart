@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Image.asset('assets/images/logo-with-text-white.png', fit: BoxFit.contain, height: 100,),
         toolbarHeight: 120,
