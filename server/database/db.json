@@ -1,14 +1,1 @@
-{
-  "cars": {
-
-    "27": {
-      "id": "ee7aa7cc-8958-4525-9f2d-edeeaa024e18",
-      "licencePlate": "AAA-999",
-      "name": "MTSU Car",
-      "lat": 37.785834,
-      "lng": -122.406417,
-      "status": 0,
-      "createAt": "2023-10-09T14:52:50.777803+00:00"
-    }
-  }
-}
+{"cars": {"27": {"id": "ee7aa7cc-8958-4525-9f2d-edeeaa024e18", "licencePlate": "AAA-999", "name": "MTSU Car", "lat": 37.785834, "lng": -122.406417, "status": 0, "createAt": "2023-10-09T14:52:50.777803+00:00"}, "28": {"id": "0606f39b-6f60-4ba7-abb8-cbe4e65bee5f", "licencePlate": "mylicense", "name": "Jordan2", "lat": 37.4219983, "lng": -122.084, "status": 0, "createAt": "2023-10-20T17:14:59.713641+00:00"}}}
