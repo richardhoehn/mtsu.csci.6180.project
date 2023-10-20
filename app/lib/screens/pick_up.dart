@@ -14,7 +14,7 @@ class _PickUpScreenState extends State<PickUpScreen> {
   bool isRefreshing = false;
 
   Future<void> getCars() async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:5000/cars'));
+    final response = await http.get(Uri.parse('http://10.0.2.2:5000/cars'));
 
     if (response.statusCode == 200) {
       setState(() {

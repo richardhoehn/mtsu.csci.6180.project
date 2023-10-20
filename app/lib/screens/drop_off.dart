@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:io' show Platform; 
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DropOffScreen extends StatefulWidget {
   const DropOffScreen({super.key});
@@ -15,7 +16,7 @@ class _DropOffScreenState extends State<DropOffScreen> {
   final TextEditingController licencePlateController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   Position? position;
-  GoogleMapController? mapController;
+  //GoogleMapController? mapController;
 
   @override
   void initState() {
@@ -49,8 +50,9 @@ class _DropOffScreenState extends State<DropOffScreen> {
       'lat': lat,
     };
 
+    String endpoint = Platform.isAndroid ? 'http://10.0.2.2:5000/cars' : 'http://127.0.0.1:5000/cars';
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:5000/cars'),
+      Uri.parse(endpoint),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(data),
     );
