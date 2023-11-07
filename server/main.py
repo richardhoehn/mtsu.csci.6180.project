@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 
 # Imports
+import socket
 from tinydb import TinyDB, Query
 from flask import Flask, jsonify, request
 import uuid
 from datetime import datetime, timezone
 
+hostname = socket.gethostname()
+IPAddr = socket.gethostbyname(hostname)
+ 
 
 # Setup App
-app = Flask(__name__)
+app      = Flask(__name__)
+hostname = socket.gethostname() # Used for IP Address Setting
+IPAddr   = socket.gethostbyname(hostname) # Used for IP Address Setting
 
 
 # Connect to Database
@@ -60,4 +66,4 @@ def add_car():
 
 # Start APP
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=IPAddr, port=5000, debug=True)
