@@ -1,5 +1,6 @@
 import 'package:app/screens/drop_off.dart';
 import 'package:app/screens/pick_up.dart';
+import 'package:app/widgets/map_sample.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -79,7 +80,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+          SizedBox(
+            height: 200,
+            child: MapSample()),
+          
           ],
         ),
       ),
