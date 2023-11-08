@@ -12,7 +12,11 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Image.asset('assets/images/logo-with-text-white.png', fit: BoxFit.contain, height: 100,),
+        title: Image.asset(
+          'assets/images/logo-with-text-white.png',
+          fit: BoxFit.contain,
+          height: 100,
+        ),
         toolbarHeight: 120,
       ),
       body: Center(
@@ -21,7 +25,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 100,
               child: Center(
-                child: Text('Welcome to Valet Buddy!', style: TextStyle(fontSize: 30),),
+                child: Text(
+                  'Welcome to Valet Buddy!',
+                  style: TextStyle(fontSize: 30),
+                ),
               ),
             ),
             AspectRatio(
@@ -81,10 +88,24 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-          SizedBox(
-            height: 200,
-            child: MapSample()),
-          
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.blue,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: const MapSample(),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
