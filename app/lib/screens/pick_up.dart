@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:app/util/config.dart';
 import 'dart:convert';
 
 class PickUpScreen extends StatefulWidget {
@@ -14,8 +15,7 @@ class _PickUpScreenState extends State<PickUpScreen> {
   bool isRefreshing = false;
 
   Future<void> getCars() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:5000/cars'));
-
+    final response = await http.get(Uri.parse('${Config.domain.scheme}://${Config.domain.host}/cars'));
     if (response.statusCode == 200) {
       setState(() {
         cars = List<Map<String, dynamic>>.from(json.decode(response.body));
@@ -50,7 +50,11 @@ class _PickUpScreenState extends State<PickUpScreen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
-        title: Image.asset('assets/images/logo-square-white.png', fit: BoxFit.contain, height: 36,),
+        title: Image.asset(
+          Config.images.squareWhiteLogo,
+          fit: BoxFit.contain,
+          height: 36,
+        ),
         toolbarHeight: 55,
         leading: IconButton(
           icon: Icon(Icons.arrow_back), // You can use any icon you prefer

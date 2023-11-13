@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
-import 'dart:io' show Platform; 
+import 'dart:io' show Platform;
+import 'package:app/util/config.dart';
 //import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DropOffScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _DropOffScreenState extends State<DropOffScreen> {
   void initState() {
     super.initState();
     getLocation();
+    //Config.domain.host + "/cars";
   }
 
   Future<void> getLocation() async {
@@ -50,7 +52,9 @@ class _DropOffScreenState extends State<DropOffScreen> {
       'lat': lat,
     };
 
-    String endpoint = Platform.isAndroid ? 'http://10.0.2.2:5000/cars' : 'http://192.168.0.13:5000/cars';
+    String endpoint = Platform.isAndroid
+        ? '${Config.domain.scheme}://${Config.domain.host}/cars'
+        : 'http://127.0.0.1:5000/cars';
     final response = await http.post(
       Uri.parse(endpoint),
       headers: {'Content-Type': 'application/json'},
@@ -71,7 +75,11 @@ class _DropOffScreenState extends State<DropOffScreen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
-        title: Image.asset('assets/images/logo-square-white.png', fit: BoxFit.contain, height: 36,),
+        title: Image.asset(
+          Config.images.squareWhiteLogo,
+          fit: BoxFit.contain,
+          height: 36,
+        ),
         toolbarHeight: 55,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back), // You can use any icon you prefer
@@ -101,7 +109,9 @@ class _DropOffScreenState extends State<DropOffScreen> {
               controller: nameController,
               decoration: const InputDecoration(labelText: 'Name'),
             ),
-            position == null ? Text('Searching Poistion') : Text('Found Position'),
+            position == null
+                ? Text('Searching Poistion')
+                : Text('Found Position'),
             // Display the map
             ElevatedButton(
               onPressed: addCar,

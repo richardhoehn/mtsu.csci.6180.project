@@ -1,5 +1,6 @@
 import 'package:app/screens/drop_off.dart';
 import 'package:app/screens/pick_up.dart';
+import 'package:app/util/config.dart';
 import 'package:app/widgets/map_sample.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Image.asset(
-          'assets/images/logo-with-text-white.png',
+          Config.images.squareWhiteLogo,
           fit: BoxFit.contain,
           height: 100,
         ),
