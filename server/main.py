@@ -7,6 +7,14 @@ from flask import Flask, jsonify, request
 import uuid
 from datetime import datetime, timezone
 
+# Imports - Local
+from ticket_view import TicketView
+from ticket_status_view import TicketStatusView
+from user_view import UserView
+from user_status_view import UserStatusView
+from problem_type_view import ProblemTypeView
+
+
 hostname = socket.gethostname()
 IPAddr = socket.gethostbyname(hostname)
  
@@ -22,47 +30,32 @@ db = TinyDB('database/db.json')
 cars_table = db.table('cars')
 Car = Query()
 
-# Route to get ALL cars
-@app.route('/cars', methods=['GET'])
-def get_cars():
-    return jsonify(cars_table.all())
 
+# Register Tickets (View)
+ticket_view = TicketView.as_view('TicketView')
+app.add_url_rule('/tickets',             view_func=ticket_view, methods=['GET', 'POST'], defaults={'id': None})
+app.add_url_rule('/tickets/<string:id>', view_func=ticket_view, methods=['GET', 'PUT'])
 
-# Route for GET of a Single Car by ID
-@app.route('/cars/<string:car_id>', methods=['GET'])
-def get_car_by_id(car_id):
-    car = cars_table.get(Car.id == car_id)
-    if car is not None:
-        return jsonify(car)
-    else:
-        return jsonify({"error": "Car not found"}), 404
+# Register Ticket Status (View)
+ticket_status_view = TicketStatusView.as_view('TicketStatusView')
+app.add_url_rule('/ticketStatuses',             view_func=ticket_status_view, methods=['GET'], defaults={'id': None})
+app.add_url_rule('/ticketStatuses/<string:id>', view_func=ticket_status_view, methods=['GET'])
 
-# Route for adding a new car (POST request)
-@app.route('/cars', methods=['POST'])
-def add_car():
-    data = request.get_json() # This is the Payload details from the APP
-    id = str(uuid.uuid4()) # Generate a unique UUID for the new car
-    create_at = datetime.now(timezone.utc).isoformat()
+# Register Users (View)
+user_view = UserView.as_view('UserView')
+app.add_url_rule('/users',             view_func=user_view, methods=['GET'], defaults={'id': None})
+app.add_url_rule('/users/<string:id>', view_func=user_view, methods=['GET'])
+app.add_url_rule('/users/auth',        view_func=user_view, methods=['POST'])
 
-    print(data)
+# Register User Status (View)
+user_status_view = UserStatusView.as_view('UserStatusView')
+app.add_url_rule('/userStatuses',             view_func=user_status_view, methods=['GET'], defaults={'id': None})
+app.add_url_rule('/userStatuses/<string:id>', view_func=user_status_view, methods=['GET'])
 
-    # This is just test code - WE will pulls this from the "payload" POST event
-    new_car = {
-        'id': id,
-        'licencePlate': data['licencePlate'],
-        'name': data['name'],
-        'lat': data['lat'],
-        'lng': data['lng'],
-        'status': 0,
-        'createAt': create_at
-    }
-
-    print(new_car)
-
-    cars_table.insert(new_car)
-    # Return the "Saved" car by calling the method that return if we use GET
-    return get_car_by_id(id), 200   # This is good practice so we know what has been saved.
-
+# Register Problem Types (View)
+problem_type_view = ProblemTypeView.as_view('ProblemTypeView')
+app.add_url_rule('/problemTypes',             view_func=problem_type_view, methods=['GET'], defaults={'id': None})
+app.add_url_rule('/problemTypes/<string:id>', view_func=problem_type_view, methods=['GET'])
 
 # Start APP
 if __name__ == '__main__':
