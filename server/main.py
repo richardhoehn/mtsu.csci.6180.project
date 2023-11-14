@@ -33,7 +33,8 @@ Car = Query()
 
 # Register Tickets (View)
 ticket_view = TicketView.as_view('TicketView')
-app.add_url_rule('/tickets',             view_func=ticket_view, methods=['GET', 'POST'], defaults={'id': None})
+app.add_url_rule('/tickets',             view_func=ticket_view, methods=['GET'], defaults={'id': None})
+app.add_url_rule('/tickets',             view_func=ticket_view, methods=['POST'])
 app.add_url_rule('/tickets/<string:id>', view_func=ticket_view, methods=['GET', 'PUT'])
 
 # Register Ticket Status (View)

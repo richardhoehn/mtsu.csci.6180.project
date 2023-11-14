@@ -13,9 +13,15 @@ class ProblemTypes:
     # Constructor
     def __init__(self):
         self.problemTypeTable = TinyDB('database/db.json').table('problemTypes')
+        # Setup Defaults
+        self.problemTypeTable.upsert({'id': 1, 'name': 'None'},      Query().id == 1)
+        self.problemTypeTable.upsert({'id': 2, 'name': 'Lost'},      Query().id == 2)
+        self.problemTypeTable.upsert({'id': 3, 'name': 'Stolen'},    Query().id == 3)
+        self.problemTypeTable.upsert({'id': 4, 'name': 'Scratched'}, Query().id == 4)
+
     
     def list(self):
         return self.problemTypeTable.all()
     
     def find(self, id):
-        return self.problemTypeTable.get(Query().id == id)
+        return self.problemTypeTable.get(Query().id == int(id))

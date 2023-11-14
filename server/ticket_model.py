@@ -27,8 +27,7 @@ class Tickets:
     def add(self, data):
         id = str(uuid.uuid4()) # Generate a unique UUID for the new car
         create_at = datetime.now(timezone.utc).isoformat()
-
-        print(data)
+        zero_uuid = str(uuid.UUID(int=0))
 
         # This is just test code - WE will pulls this from the "payload" POST event
         ticket = {
@@ -39,12 +38,14 @@ class Tickets:
                 'lat': data['lat'],
                 'lng': data['lng'],
             },
-            'status': 0,
-            'createAt': create_at
+            'ticketStatusId': 1,
+            'problemTypeId': 1,
+            'createAt': create_at,
+            'createBy': zero_uuid,
+            'updateAt': create_at,
+            'updateBy': zero_uuid
         }
-
-        print(ticket)
 
         # Add the "ticket" to the Database
         self.ticketTable.insert(ticket)
-        return(ticket)
+        return ticket

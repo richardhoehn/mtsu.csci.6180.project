@@ -13,9 +13,14 @@ class UserStatuses:
     # Constructor
     def __init__(self):
         self.userStatusTable = TinyDB('database/db.json').table('userStatuses')
+        # Setup Defaults
+        self.userStatusTable.upsert({'id': 1, 'name': 'Active'},     Query().id == 1)
+        self.userStatusTable.upsert({'id': 2, 'name': 'Admin'},      Query().id == 2)
+        self.userStatusTable.upsert({'id': 3, 'name': 'Non-Active'}, Query().id == 3)
     
     def list(self):
         return self.userStatusTable.all()
     
     def find(self, id):
-        return self.userStatusTable.get(Query().id == id)
+        print(id)
+        return self.userStatusTable.get(Query().id == int(id))
