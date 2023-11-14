@@ -1,5 +1,12 @@
 # Imports
+import json
 from tinydb import TinyDB, Query
+
+# Setup Defaults
+default_file = 'database/defaults.json'
+
+with open(default_file, 'r') as file:
+    default_data = json.load(file)
 
 class ProblemTypes:
     _instance = None
@@ -14,10 +21,8 @@ class ProblemTypes:
     def __init__(self):
         self.problemTypeTable = TinyDB('database/db.json').table('problemTypes')
         # Setup Defaults
-        self.problemTypeTable.upsert({'id': 1, 'name': 'None'},      Query().id == 1)
-        self.problemTypeTable.upsert({'id': 2, 'name': 'Lost'},      Query().id == 2)
-        self.problemTypeTable.upsert({'id': 3, 'name': 'Stolen'},    Query().id == 3)
-        self.problemTypeTable.upsert({'id': 4, 'name': 'Scratched'}, Query().id == 4)
+        for problemType in default_data['problemTypes']:
+            self.problemTypeTable.upsert(problemType, Query().id == problemType['id'])
 
     
     def list(self):

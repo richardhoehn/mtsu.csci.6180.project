@@ -1,8 +1,14 @@
 # Imports
+import json
 from tinydb import TinyDB, Query
 import uuid
 from datetime import datetime, timezone
 
+# Setup Defaults
+default_file = 'database/defaults.json'
+
+with open(default_file, 'r') as file:
+    default_data = json.load(file)
 
 class Users:
     _instance = None
@@ -15,11 +21,14 @@ class Users:
 
     # Constructor
     def __init__(self):
-        self.user_table = TinyDB('database/db.json').table('users')
-        self.user_query = Query()
+        print(default_data)
+        self.userTable = TinyDB('database/db.json').table('users')
+        # Setup Defaults
+        for user in default_data['users']:
+            self.userTable.upsert(user, Query().id == user['id'])
     
     def list(self):
-        return self.user_table.all()
+        return self.userTable.all()
     
     def find(self, id):
-        return self.user_table.get(Query().id == id)
+        return self.userTable.get(Query().id == id)

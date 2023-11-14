@@ -1,6 +1,12 @@
 # Imports
+import json
 from tinydb import TinyDB, Query
 
+# Setup Defaults
+default_file = 'database/defaults.json'
+
+with open(default_file, 'r') as file:
+    default_data = json.load(file)
 class TicketStatuses:
     _instance = None
 
@@ -14,11 +20,8 @@ class TicketStatuses:
     def __init__(self):
         self.ticketStatusTable = TinyDB('database/db.json').table('ticketStatuses')
         # Setup Defaults
-        self.ticketStatusTable.upsert({'id': 1, 'name': 'Pending'},    Query().id == 1)
-        self.ticketStatusTable.upsert({'id': 2, 'name': 'Parking'},    Query().id == 2)
-        self.ticketStatusTable.upsert({'id': 3, 'name': 'Parked'},     Query().id == 3)
-        self.ticketStatusTable.upsert({'id': 4, 'name': 'Retrieving'}, Query().id == 4)
-        self.ticketStatusTable.upsert({'id': 5, 'name': 'Complete'},   Query().id == 5)
+        for ticketStatus in default_data['ticketStatuses']:
+            self.ticketStatusTable.upsert(ticketStatus, Query().id == ticketStatus['id'])
     
     def list(self):
         return self.ticketStatusTable.all()

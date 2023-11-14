@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "firstName": "Unknown",
+        "lastName": "Unknown",
+        "email": "no-reply@nobody.com",
+        "password": "*****",
+        "userStatusId": 3
+    },
+    {
+      "id": "ee37712e-3a34-4939-8548-9bcbf4b78dce",
+      "firstName": "Richard",
+      "lastName": "Hoehn",
+      "email": "rhoehn@mtmail.mtsu.edu",
+      "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "userStatusId": 1
+    }
+  ],
+  "ticketStatuses": [
+    { "id": 1, "name": "Pending" },
+    { "id": 2, "name": "Parking" },
+    { "id": 3, "name": "Parked" },
+    { "id": 4, "name": "Retrieving" },
+    { "id": 5, "name": "Complete" }
+  ],
+  "problemTypes": [
+    { "id": 1, "name": "None" },
+    { "id": 2, "name": "Lost" },
+    { "id": 3, "name": "Stolen" },
+    { "id": 4, "name": "Scratched" }
+  ],
+  "userStatuses": [
+    { "id": 1, "name": "Active" },
+    { "id": 2, "name": "Admin" },
+    { "id": 3, "name": "Non-Active" }
+  ]
+}
