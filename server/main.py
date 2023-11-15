@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 # Imports - Local
 from ticket_view import TicketView
 from ticket_status_view import TicketStatusView
+from ticket_images_view import TicketImagesView
 from user_view import UserView
 from user_status_view import UserStatusView
 from problem_type_view import ProblemTypeView
@@ -24,18 +25,16 @@ app      = Flask(__name__)
 hostname = socket.gethostname() # Used for IP Address Setting
 IPAddr   = socket.gethostbyname(hostname) # Used for IP Address Setting
 
-
-# Connect to Database
-db = TinyDB('database/db.json')
-cars_table = db.table('cars')
-Car = Query()
-
-
 # Register Tickets (View)
 ticket_view = TicketView.as_view('TicketView')
 app.add_url_rule('/tickets',             view_func=ticket_view, methods=['GET'], defaults={'id': None})
 app.add_url_rule('/tickets',             view_func=ticket_view, methods=['POST'])
 app.add_url_rule('/tickets/<string:id>', view_func=ticket_view, methods=['GET', 'PUT'])
+
+# Register Ticket Images (View)
+ticket_images_view = TicketImagesView.as_view('TicketImagesView')
+app.add_url_rule('/tickets/<string:id>/images', view_func=ticket_images_view, methods=['GET', 'POST'])
+
 
 # Register Ticket Status (View)
 ticket_status_view = TicketStatusView.as_view('TicketStatusView')

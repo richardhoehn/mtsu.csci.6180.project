@@ -23,6 +23,7 @@ class UserView(MethodView):
             else:
                 return jsonify({"error": "user Not Found"}), 404
     
-    def put(self, id):
-        print(id)
-        return self.get(id)
+    #TODO: Need Auth here... 
+    def post(self):
+        return {"success": True}
+        
