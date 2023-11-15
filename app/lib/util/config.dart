@@ -19,14 +19,14 @@ class ValetBuddyImages {
 
 class ValetBuddyDomain {
   final String scheme = 'http';
-  final String host = '192.168.1.90:5000'; //Replace the IP with your own local IP
+  final String host = '192.168.0.13:5000'; //Replace the IP with your own local IP
 }
 
 class ValetBuddyColors {
-  static const Color const_backgroundColor = Color.fromARGB(255, 1, 32, 60);
+  static const Color const_backgroundColor = Colors.blueGrey;
   static const Color const_backgroundColorNav = Color.fromARGB(255, 1, 32, 60);
   static const Color const_iconColor = Color.fromARGB(255, 1, 255, 255);
-  static const Color const_textColor = Color.fromARGB(200, 110, 110, 110);
+  static const Color const_textColor = Colors.white;
 
   final textColor = const_textColor;
   final backgroundColor = const_backgroundColor;

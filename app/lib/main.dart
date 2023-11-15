@@ -1,17 +1,25 @@
 import 'package:app/screens/home.dart';
+import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Setup Main - Login
+final loginProvider = StateProvider<bool>((ref) => false);
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final bool isLoggedIn = ref.watch(loginProvider);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MTSU Valet Buddy',
@@ -33,7 +41,7 @@ class MyApp extends StatelessWidget {
           displaySmall: GoogleFonts.bebasNeue(),
         ),
       ),
-      home: HomeScreen(),
+      home: isLoggedIn ? HomeScreen() : LoginScreen(),
     );
   }
 }
