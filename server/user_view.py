@@ -25,5 +25,14 @@ class UserView(MethodView):
     
     #TODO: Need Auth here... 
     def post(self):
-        return {"success": True}
+        data = request.get_json() # This is the Payload details from the APP
+        email = data['email']
+        password = data['password']
+        print(f"\n**** Auth ***\nEmail:\t{email}\nPwd:\t{password}\n*** Auth ***\n")
+        user = self.user_model.auth(email, password)
+        if user is not None:
+            return self.get(user['id'])
+        else:
+            return jsonify({"error": "user Not Found"}), 401
+            return jsonify(user)
         

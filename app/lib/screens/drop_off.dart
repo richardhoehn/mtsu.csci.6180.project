@@ -52,9 +52,7 @@ class _DropOffScreenState extends State<DropOffScreen> {
       'lat': lat,
     };
 
-    String endpoint = Platform.isAndroid
-        ? '${Config.domain.scheme}://${Config.domain.host}/cars'
-        : 'http://127.0.0.1:5000/cars';
+    String endpoint = '${Config.domain.scheme}://${Config.domain.host}/tickets';
     final response = await http.post(
       Uri.parse(endpoint),
       headers: {'Content-Type': 'application/json'},

@@ -21,7 +21,6 @@ class Users:
 
     # Constructor
     def __init__(self):
-        print(default_data)
         self.userTable = TinyDB('database/db.json').table('users')
         # Setup Defaults
         for user in default_data['users']:
@@ -32,3 +31,6 @@ class Users:
     
     def find(self, id):
         return self.userTable.get(Query().id == id)
+
+    def auth(self, email, password):
+        return self.userTable.get((Query().email == email) & (Query().password == password))

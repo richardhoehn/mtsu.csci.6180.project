@@ -15,14 +15,14 @@ class _PickUpScreenState extends State<PickUpScreen> {
   bool isRefreshing = false;
 
   Future<void> getCars() async {
-    final response = await http.get(Uri.parse('${Config.domain.scheme}://${Config.domain.host}/cars'));
+    final response = await http.get(Uri.parse('${Config.domain.scheme}://${Config.domain.host}/tickets'));
     if (response.statusCode == 200) {
       setState(() {
         cars = List<Map<String, dynamic>>.from(json.decode(response.body));
       });
     } else {
       // Handle errors here
-      print('Failed to fetch cars: ${response.statusCode}');
+      print('Failed to fetch tickets: ${response.statusCode}');
     }
   }
 
