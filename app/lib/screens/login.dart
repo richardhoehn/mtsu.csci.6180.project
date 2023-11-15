@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app/util/config.dart';
 
-
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
@@ -18,10 +17,13 @@ class _LoginScreenState extends State<LoginScreen> {
   AuthService authService = AuthService();
 
   bool isLoading = false;
+  String errorText = '';
 
   Future<bool> auth() async {
     // Set Loading Flag
-    setState(() => isLoading = true);
+    isLoading = true;
+    errorText = '';
+    setState(() {});
 
     // Minor Delay for Effect(!)
     await Future.delayed(const Duration(seconds: 1), () {});
@@ -30,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await authService.login(email: emailCtrl.text, password: passwordCtrl.text);
     } catch (error) {
       print(error);
+      errorText = 'Login Failed!';
     } finally {
       print('Finally');
       setState(() => isLoading = false);
@@ -67,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(15),
                     child: TextField(
                       controller: emailCtrl,
                       decoration: const InputDecoration(
@@ -78,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(15),
                     child: TextField(
                       controller: passwordCtrl,
                       obscureText: true,
@@ -89,6 +92,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                  errorText != ''
+                      ? Text(
+                          errorText,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        )
+                      : const SizedBox(),
                   Center(
                     child: Consumer(builder: (context, ref, _) {
                       return isLoading
@@ -97,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Config.colors.backgroundColor,
                                 foregroundColor: Config.colors.textColor,
-                                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                                 textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                               ),
                               onPressed: () async {
