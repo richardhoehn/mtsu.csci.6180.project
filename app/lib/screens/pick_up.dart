@@ -85,7 +85,6 @@ class _PickUpScreenState extends State<PickUpScreen> {
                   itemCount: cars.length,
                   itemBuilder: (context, index) {
                     final car = cars[index];
-                    print(car);
                     return PickUpListTileWidget(ticket: car);
                   },
                 ),

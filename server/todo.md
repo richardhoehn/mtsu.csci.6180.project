@@ -16,8 +16,9 @@
 ## App
 * Ticket Screen
     * This includes displaying the location of the ticket's `geoLocation`
-* Add Serach / Filter to PickUp Screen
-* Screen to Take Picture
+    Add the "Take Picture" button that open the Picture Taking Screen
+* Add Serach / Filter to PickUp Screen - RH
+* Button to Take Picture
 * Button to Set Location of a Ticket (Car)
 * Button / Dropdown to Change Ticket Status
 * Button / Dropdown to Change Problem Type
