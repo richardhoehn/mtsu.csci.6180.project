@@ -1,3 +1,4 @@
+import 'package:app/screens/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/util/config.dart';
@@ -87,7 +88,25 @@ class _PickUpScreenState extends State<PickUpScreen> {
                     return ListTile(
                       title: Text(car['licencePlate'].toString() ?? '--'),
                       subtitle: Text(car['name'].toString() ?? '---'),
-                      // Add more fields here as needed
+                      onTap: () {
+                        print('Tapped! ${car['name'].toString()}');
+                      },
+                      trailing: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
+                          ),
+                          onPressed: () {
+                            print('Button Pressed!!!');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => TicketScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Go',
+                            style: TextStyle(color: Colors.amberAccent),
+                          )),
                     );
                   },
                 ),

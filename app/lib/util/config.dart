@@ -19,7 +19,7 @@ class ValetBuddyImages {
 
 class ValetBuddyDomain {
   final String scheme = 'http';
-  final String host = '192.168.0.13:5000'; //Replace the IP with your own local IP
+  final String host = '192.168.0.16:5000'; //Replace the IP with your own local IP
 }
 
 class ValetBuddyColors {
