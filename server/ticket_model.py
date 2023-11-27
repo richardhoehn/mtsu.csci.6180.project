@@ -49,3 +49,6 @@ class Tickets:
         # Add the "ticket" to the Database
         self.ticketTable.insert(ticket)
         return ticket
+    
+    def update(self):
+        pass
