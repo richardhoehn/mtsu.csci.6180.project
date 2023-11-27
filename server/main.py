@@ -25,6 +25,8 @@ app      = Flask(__name__)
 hostname = socket.gethostname() # Used for IP Address Setting
 IPAddr   = socket.gethostbyname(hostname) # Used for IP Address Setting
 
+print(IPAddr)
+
 # Register Tickets (View)
 ticket_view = TicketView.as_view('TicketView')
 app.add_url_rule('/tickets',             view_func=ticket_view, methods=['GET'], defaults={'id': None})

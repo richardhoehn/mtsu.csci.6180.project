@@ -34,20 +34,10 @@ class TicketView(MethodView):
             else:
                 return jsonify({"error": "Ticket Not Found"}), 404
     
-    #TODO: Need to implemtn updating the tickets
     def put(self, id):
-        data = request.get_json()
-        del data.id
-        del data.created_by
-        # ticket_to_update = self.ticket_model.find(id)
-
-        # for k, v in data.items():
-        #     if k not in ticket_to_update or ticket_to_update[k] != k:
-        #         ticket_to_update[k] = v
-
-        # ticket_to_update.update()
+        data = request.args
+        #TODO: Need To handle the geoLocation object somehow...
         self.ticket_model.update(id, data)
-        
         return self.get(id)
 
 
