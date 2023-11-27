@@ -37,15 +37,18 @@ class TicketView(MethodView):
     #TODO: Need to implemtn updating the tickets
     def put(self, id):
         data = request.get_json()
-        ticket_to_update = self.ticket_model.find(id)
+        del data.id
+        del data.created_by
+        # ticket_to_update = self.ticket_model.find(id)
 
-        for k, v in data.items():
-            if k not in ticket_to_update or ticket_to_update[k] != k:
-                ticket_to_update[k] = v
+        # for k, v in data.items():
+        #     if k not in ticket_to_update or ticket_to_update[k] != k:
+        #         ticket_to_update[k] = v
 
-        ticket_to_update.update()
+        # ticket_to_update.update()
+        self.ticket_model.update(id, data)
         
-        return self.get(ticket_to_update['id'])
+        return self.get(id)
 
 
     def post(self):

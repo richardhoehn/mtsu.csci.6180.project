@@ -50,5 +50,5 @@ class Tickets:
         self.ticketTable.insert(ticket)
         return ticket
     
-    def update(self):
-        pass
+    def update(self, id, data):
+        return self.ticketTable.update(data, Query().id == id)
