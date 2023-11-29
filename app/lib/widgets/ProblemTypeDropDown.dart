@@ -19,12 +19,6 @@ class _ProblemTypeDropDownState extends State<ProblemTypeDropDown> {
   Dio dio = DioClient().dio;
   List<ProblemType> problemTypes = [];
   bool isRefreshing = false;
-  String dropdownvalueProblems =
-      '1'; //Default value that is changed in initState()
-
-  Future<void> setTicketProblemType(String ticketId, int problemTypeId) async {
-    final response = await http.put(Uri.parse('${Config.domain.scheme}://${Config.domain.host}/tickets/$ticketId?problemTypeId=$problemTypeId'));
-  }
 
   Future<void> onRefresh() async {
     setState(() {
@@ -41,34 +35,33 @@ class _ProblemTypeDropDownState extends State<ProblemTypeDropDown> {
   @override
   void initState() {
     super.initState();
+    onRefresh();
   }
 
   @override
   Widget build(BuildContext context) {
-    return
-          DropdownButton<String>(
-            // Initial Value
-            value: dropdownvalueProblems,
+    return DropdownButton<String>(
+      // Initial Value
+      value: widget.ticket.problemType.id.toString(),
 
-            // Down Arrow Icon
-            icon: const Icon(Icons.keyboard_arrow_down),
+      // Down Arrow Icon
+      icon: const Icon(Icons.keyboard_arrow_down),
 
-            // Array list of items
-            items: problemTypes.map((ProblemType problemType) {
-              return DropdownMenuItem(
-                value: problemType.id.toString(),
-                child: Text(problemType.name),
-              );
-            }).toList(),
-            // After selecting the desired option,it will
-            // change button value to selected value
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownvalueProblems = newValue!;
-                setTicketProblemType(
-                    widget.ticket.id, int.parse(newValue));
-              });
-            },
-          );
+      // Array list of items
+      items: problemTypes.map((ProblemType problemType) {
+        return DropdownMenuItem(
+          value: problemType.id.toString(),
+          child: Text(problemType.name),
+        );
+      }).toList(),
+      // After selecting the desired option,it will
+      // change button value to selected value
+      onChanged: (String? newValue) {
+        setState(() {
+          widget.ticket.updateProblemType(problemTypes.firstWhere(
+              (problemType) => problemType.id.toString() == newValue));
+        });
+      },
+    );
   }
 }

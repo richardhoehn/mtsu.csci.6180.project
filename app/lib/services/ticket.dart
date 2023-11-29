@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:app/services/geo_location.dart';
 import 'package:app/services/problem_type.dart';
 import 'package:app/services/ticket_status.dart';
@@ -31,6 +33,32 @@ class Ticket {
     // required this.updateAt,
     required this.updatedBy,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'licencePlate': licencePlate,
+      'ticketStatusId': ticketStatus.id,
+      'problemTypeId': problemType.id,
+      'geoLocation': geoLocation.toJson()
+    };
+  }
+
+  Future<Ticket> updateProblemType(ProblemType problemType) async {
+    this.problemType = problemType;
+    await dio.put(
+        '${Config.domain.scheme}://${Config.domain.host}/tickets/$id',
+        data: toJson());
+    return this;
+  }
+
+ Future<Ticket> updateTicketStatus(TicketStatus ticketStatus) async {
+    this.ticketStatus = ticketStatus;
+    await dio.put(
+        '${Config.domain.scheme}://${Config.domain.host}/tickets/$id',
+        data: toJson());
+    return this;
+  }
 
   factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(

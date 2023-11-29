@@ -24,7 +24,8 @@ class _ProblemTypeDropDownState extends State<TicketStatusDropDown> {
       '2'; //Default value that is changed in initState()
 
   Future<void> setTicketStatus(String ticketId, int ticketStatusId) async {
-    final response = await http.put(Uri.parse('${Config.domain.scheme}://${Config.domain.host}/tickets/$ticketId?ticketStatusId=$ticketStatusId'));
+    final response = await http.put(Uri.parse(
+        '${Config.domain.scheme}://${Config.domain.host}/tickets/$ticketId?ticketStatusId=$ticketStatusId'));
   }
 
   Future<void> onRefresh() async {
@@ -42,34 +43,33 @@ class _ProblemTypeDropDownState extends State<TicketStatusDropDown> {
   @override
   void initState() {
     super.initState();
+    onRefresh();
   }
 
   @override
   Widget build(BuildContext context) {
-    return
-          DropdownButton<String>(
-            // Initial Value
-            value: dropdownvalueStatuses,
+    return DropdownButton<String>(
+      // Initial Value
+      value: dropdownvalueStatuses,
 
-            // Down Arrow Icon
-            icon: const Icon(Icons.keyboard_arrow_down),
+      // Down Arrow Icon
+      icon: const Icon(Icons.keyboard_arrow_down),
 
-            // Array list of items
-            items: ticketStatuses.map((TicketStatus ticketStatus) {
-              return DropdownMenuItem(
-                value: ticketStatus.id.toString(),
-                child: Text(ticketStatus.name),
-              );
-            }).toList(),
-            // After selecting the desired option,it will
-            // change button value to selected value
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownvalueStatuses = newValue!;
-                setTicketStatus(
-                    widget.ticket.id, int.parse(newValue));
-              });
-            },
-          );
+      // Array list of items
+      items: ticketStatuses.map((TicketStatus ticketStatus) {
+        return DropdownMenuItem(
+          value: ticketStatus.id.toString(),
+          child: Text(ticketStatus.name),
+        );
+      }).toList(),
+      // After selecting the desired option,it will
+      // change button value to selected value
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownvalueStatuses = newValue!;
+          setTicketStatus(widget.ticket.id, int.parse(newValue));
+        });
+      },
+    );
   }
 }
