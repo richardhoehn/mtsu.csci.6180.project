@@ -10,24 +10,24 @@ class Ticket {
 
   // DateTime createAt;
   // User createdBy;
-  //GeoLocation geoLocation;
+  GeoLocation geoLocation;
   String id;
   String licencePlate;
   String name;
   ProblemType problemType;
-  //TicketStatus ticketStatus;
+  TicketStatus ticketStatus;
   // DateTime updateAt;
   // User updatedBy;
 
   Ticket({
     // required this.createAt,
     // required this.createdBy,
-    //required this.geoLocation,
+    required this.geoLocation,
     required this.id,
     required this.licencePlate,
     required this.name,
     required this.problemType,
-    //required this.ticketStatus,
+    required this.ticketStatus,
     // required this.updateAt,
     // required this.updatedBy,
   });
@@ -36,12 +36,12 @@ class Ticket {
     return Ticket(
       // createAt: DateTime.parse(json['create']['at']),
       // createdBy: User.fromJson(json['create']['by']),
-      //geoLocation: GeoLocation.fromJson(json['geoLocation']),
+      geoLocation: GeoLocation.fromJson(json['geoLocation']),
       id: json['id'],
       licencePlate: json['licencePlate'],
       name: json['name'],
       problemType: ProblemType.fromJson(json['problemType']),
-      //ticketStatus: TicketStatus.fromJson(json['ticketStatus']),
+      ticketStatus: TicketStatus.fromJson(json['ticketStatus']),
       // updateAt: DateTime.parse(json['update']['at']),
       // updatedBy: User.fromJson(json['update']['by']),
     );
