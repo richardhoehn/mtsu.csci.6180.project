@@ -9,9 +9,12 @@ class PickUpListTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final String subtitleString = 'Lic. Plate: ${ticket.licencePlate}\nStatus: ${ticket.ticketStatus.name}\nProblem: ${ticket.problemType.name}';
+
     return ListTile(
       title: Text(ticket.name),
-      subtitle: Text(ticket.licencePlate),
+      subtitle: Text(subtitleString),
       leading: TicketImageWidget(ticket: ticket),
       trailing: ElevatedButton(
           style: const ButtonStyle(
