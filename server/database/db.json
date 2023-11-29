@@ -1,1 +1,91 @@
-{"users": {"1": {"id": "ee37712e-3a34-4939-8548-9bcbf4b78dce", "firstName": "Richard", "lastName": "Hoehn", "email": "rhoehn@mtmail.mtsu.edu", "password": "1234", "userStatusId": 1}, "2": {"id": "00000000-0000-0000-0000-000000000000", "firstName": "Unknown", "lastName": "Unknown", "email": "no-reply@nobody.com", "password": "*****", "userStatusId": 3}}, "userStatuses": {"1": {"id": 1, "name": "Active"}, "2": {"id": 2, "name": "Admin"}, "3": {"id": 3, "name": "Non-Active"}}, "ticketStatuses": {"1": {"id": 1, "name": "Pending"}, "2": {"id": 2, "name": "Parking"}, "3": {"id": 3, "name": "Parked"}, "4": {"id": 4, "name": "Retrieving"}, "5": {"id": 5, "name": "Complete"}}, "problemTypes": {"1": {"id": 1, "name": "None"}, "2": {"id": 2, "name": "Lost"}, "3": {"id": 3, "name": "Stolen"}, "4": {"id": 4, "name": "Scratched"}}, "tickets": {"1": {"id": "53dd0fb0-5d80-488f-89bb-828c85963bff", "licencePlate": "ABC-123", "name": "Richard Hoehn", "geoLocation": {"lat": 0, "lng": 0}, "ticketStatusId": 1, "problemTypeId": 1, "createAt": "2023-11-14T04:21:01.660064+00:00", "createBy": "00000000-0000-0000-0000-000000000000", "updateAt": "2023-11-14T04:21:01.660064+00:00", "updateBy": "00000000-0000-0000-0000-000000000000"}}}
+{
+    "users": {
+        "1": {
+            "id": "ee37712e-3a34-4939-8548-9bcbf4b78dce",
+            "firstName": "Richard",
+            "lastName": "Hoehn",
+            "email": "rhoehn@mtmail.mtsu.edu",
+            "password": "1234",
+            "userStatusId": 1
+        },
+        "2": {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "firstName": "Unknown",
+            "lastName": "Unknown",
+            "email": "no-reply@nobody.com",
+            "password": "*****",
+            "userStatusId": 3
+        }
+    },
+    "userStatuses": {
+        "1": {
+            "id": 1,
+            "name": "Active"
+        },
+        "2": {
+            "id": 2,
+            "name": "Admin"
+        },
+        "3": {
+            "id": 3,
+            "name": "Non-Active"
+        }
+    },
+    "ticketStatuses": {
+        "1": {
+            "id": 1,
+            "name": "Pending"
+        },
+        "2": {
+            "id": 2,
+            "name": "Parking"
+        },
+        "3": {
+            "id": 3,
+            "name": "Parked"
+        },
+        "4": {
+            "id": 4,
+            "name": "Retrieving"
+        },
+        "5": {
+            "id": 5,
+            "name": "Complete"
+        }
+    },
+    "problemTypes": {
+        "1": {
+            "id": 1,
+            "name": "None"
+        },
+        "2": {
+            "id": 2,
+            "name": "Lost"
+        },
+        "3": {
+            "id": 3,
+            "name": "Stolen"
+        },
+        "4": {
+            "id": 4,
+            "name": "Scratched"
+        }
+    },
+    "tickets": {
+        "1": {
+            "id": "53dd0fb0-5d80-488f-89bb-828c85963bff",
+            "licencePlate": "ABC-123",
+            "name": "Richard Hoehn",
+            "geoLocation": {
+                "lat": 0,
+                "lng": 0
+            },
+            "ticketStatusId": 1,
+            "problemTypeId": 1,
+            "createAt": "2023-11-14T04:21:01.660064+00:00",
+            "createBy": "00000000-0000-0000-0000-000000000000",
+            "updateAt": "2023-11-14T04:21:01.660064+00:00",
+            "updateBy": "00000000-0000-0000-0000-000000000000"
+        }
+    }
+}

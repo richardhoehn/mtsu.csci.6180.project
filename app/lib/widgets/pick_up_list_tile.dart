@@ -22,7 +22,7 @@ class PickUpListTileWidget extends StatelessWidget {
             print('Button Pressed!!!');
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => TicketScreen(),
+                builder: (context) => TicketScreen(ticket: ticket),
               ),
             );
           },
