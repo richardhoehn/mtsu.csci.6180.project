@@ -21,7 +21,7 @@ IPAddr = socket.gethostbyname(hostname)
  
 
 # Setup App
-app      = Flask(__name__)
+app      = Flask(__name__, static_folder='images')
 hostname = socket.gethostname() # Used for IP Address Setting
 IPAddr   = socket.gethostbyname(hostname) # Used for IP Address Setting
 
