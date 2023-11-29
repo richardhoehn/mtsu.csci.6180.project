@@ -1,11 +1,11 @@
-import 'dart:io';
-
+import 'package:app/services/ticket.dart';
 import 'package:app/widgets/take_picture_page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 class TakePictureButton extends StatefulWidget {
-  const TakePictureButton({Key? key}) : super(key: key);
+  const TakePictureButton({Key? key, required this.ticket}) : super(key: key);
+  final Ticket ticket;
 
   @override
   State<TakePictureButton> createState() => _TakePictureButtonState();
@@ -18,12 +18,11 @@ class _TakePictureButtonState extends State<TakePictureButton> {
     final cameras = await availableCameras();
     final camera = cameras.first;
     if (!mounted) return;
-    final result = await Navigator.push(
+    await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TakePicturePage(camera: camera),
+          builder: (context) => TakePicturePage(camera: camera, ticket: widget.ticket),
         ));
-    print(result);
   }
 
   @override

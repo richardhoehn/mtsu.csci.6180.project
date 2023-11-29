@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app/services/ticket.dart';
 import 'package:app/util/config.dart';
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
@@ -7,8 +8,9 @@ import 'package:flutter/material.dart';
 
 class TakePicturePage extends StatefulWidget {
   final CameraDescription camera;
+  final Ticket ticket;
 
-  const TakePicturePage({Key? key, required this.camera}) : super(key: key);
+  const TakePicturePage({Key? key, required this.camera, required this.ticket}) : super(key: key);
 
   @override
   State<TakePicturePage> createState() => _TakePicturePageState();
@@ -32,14 +34,16 @@ class _TakePicturePageState extends State<TakePicturePage> {
     super.dispose();
   }
 
-  Future<String> uploadImage(File file) async {
+  Future<void> uploadImage(File file) async {
     String fileName = file.path.split('/').last;
     FormData formData = FormData.fromMap({
         "file":
             await MultipartFile.fromFile(file.path, filename:fileName),
     });
-    Response response = await dio.post('${Config.domain.scheme}://${Config.domain.host}/tickets/1234-ABDC/images', data: formData);
-    return response.data['id'];
+    Response response = await dio.post('${Config.domain.scheme}://${Config.domain.host}/tickets/${widget.ticket.id}/images', data: formData);
+    
+    print(response.statusCode);
+    return;
 }
 
   void _takePicture(BuildContext context) async {
