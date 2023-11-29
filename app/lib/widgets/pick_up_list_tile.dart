@@ -1,5 +1,6 @@
 import 'package:app/screens/ticket.dart';
 import 'package:app/services/ticket.dart';
+import 'package:app/widgets/ticket_image.dart';
 import 'package:flutter/material.dart';
 
 class PickUpListTileWidget extends StatelessWidget {
@@ -11,24 +12,21 @@ class PickUpListTileWidget extends StatelessWidget {
     return ListTile(
       title: Text(ticket.name),
       subtitle: Text(ticket.licencePlate),
-      onTap: () {
-        print('Tapped! ${ticket.id}');
-      },
+      leading: TicketImageWidget(ticket: ticket),
       trailing: ElevatedButton(
-          style: ButtonStyle(
+          style: const ButtonStyle(
             backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
           ),
           onPressed: () {
-            print('Button Pressed!!!');
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => TicketScreen(ticket: ticket),
               ),
             );
           },
-          child: Text(
+          child: const Text(
             'Go',
-            style: TextStyle(color: Colors.amberAccent),
+            style: TextStyle(color: Colors.white),
           )),
     );
   }

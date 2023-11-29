@@ -8,10 +8,9 @@ from flask.views import MethodView
 class TicketImagesView(MethodView):
 
     def get(self, id): 
-        img = f"{id}.jpg"
-        url = url_for('images', filename=img)
-        redirect(url, code=302)
-        return {"imageUrl": url}     
+        imgUrl = f"/images/{id}.jpg"
+        print(imgUrl)
+        return redirect(imgUrl, code=302)
 
     def post(self, id):
         file = request.files['file']
