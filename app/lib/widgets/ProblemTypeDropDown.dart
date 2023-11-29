@@ -17,19 +17,13 @@ class ProblemTypeDropDown extends StatefulWidget {
 
 class _ProblemTypeDropDownState extends State<ProblemTypeDropDown> {
   Dio dio = DioClient().dio;
-  List<Map<String, dynamic>> ticketStatuses = [];
   List<ProblemType> problemTypes = [];
   bool isRefreshing = false;
-  String dropdownvalueStatuses =
-      '2'; //Default value that is changed in initState()
   String dropdownvalueProblems =
       '1'; //Default value that is changed in initState()
 
   Future<void> setTicketProblemType(String ticketId, int problemTypeId) async {
-    String myVar =
-        '${Config.domain.scheme}://${Config.domain.host}/tickets/$ticketId?problemTypeId=$problemTypeId';
-    //print(myVar);
-    final response = await http.put(Uri.parse(myVar));
+    final response = await http.put(Uri.parse('${Config.domain.scheme}://${Config.domain.host}/tickets/$ticketId?problemTypeId=$problemTypeId'));
   }
 
   Future<void> onRefresh() async {
