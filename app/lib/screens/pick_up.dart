@@ -1,5 +1,8 @@
 import 'package:app/screens/ticket.dart';
+import 'package:app/services/server_interface.dart';
+import 'package:app/services/ticket.dart';
 import 'package:app/widgets/pick_up_list_tile.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/util/config.dart';
@@ -13,27 +16,17 @@ class PickUpScreen extends StatefulWidget {
 }
 
 class _PickUpScreenState extends State<PickUpScreen> {
-  List<Map<String, dynamic>> cars = [];
+  Dio dio = DioClient().dio;
+  List<Ticket> tickets = List.empty(growable: true);
   bool isRefreshing = false;
 
-  Future<void> getCars() async {
-    final response = await http.get(Uri.parse('${Config.domain.scheme}://${Config.domain.host}/tickets'));
-    if (response.statusCode == 200) {
-      setState(() {
-        cars = List<Map<String, dynamic>>.from(json.decode(response.body));
-      });
-    } else {
-      // Handle errors here
-      print('Failed to fetch tickets: ${response.statusCode}');
-    }
-  }
 
   Future<void> onRefresh() async {
     setState(() {
       isRefreshing = true;
     });
 
-    await getCars();
+    tickets = await DioClient().getAllTickets();
 
     setState(() {
       isRefreshing = false;
@@ -43,7 +36,6 @@ class _PickUpScreenState extends State<PickUpScreen> {
   @override
   void initState() {
     super.initState();
-    getCars();
   }
 
   @override
@@ -82,10 +74,9 @@ class _PickUpScreenState extends State<PickUpScreen> {
               child: RefreshIndicator(
                 onRefresh: onRefresh,
                 child: ListView.builder(
-                  itemCount: cars.length,
+                  itemCount: tickets.length,
                   itemBuilder: (context, index) {
-                    final car = cars[index];
-                    return PickUpListTileWidget(ticket: car);
+                    return PickUpListTileWidget(ticket: tickets[index]);
                   },
                 ),
               ),
