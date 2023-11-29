@@ -1,5 +1,8 @@
 import 'package:app/main.dart';
+import 'package:app/screens/camera_app.dart';
 import 'package:app/services/auth_service.dart';
+import 'package:app/widgets/take_picture_button.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app/util/config.dart';
@@ -39,6 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     return authService.isLoggedIn;
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -121,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                     }),
                   ),
+                  TakePictureButton(),
                 ],
               ),
             ),
