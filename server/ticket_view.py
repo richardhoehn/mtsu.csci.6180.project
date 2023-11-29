@@ -34,9 +34,12 @@ class TicketView(MethodView):
             else:
                 return jsonify({"error": "Ticket Not Found"}), 404
     
-    #TODO: Need to implemtn updating the tickets
     def put(self, id):
+        data = request.args
+        #TODO: Need To handle the geoLocation object somehow...
+        self.ticket_model.update(id, data)
         return self.get(id)
+
 
     def post(self):
         data = request.get_json() # This is the Payload details from the APP
