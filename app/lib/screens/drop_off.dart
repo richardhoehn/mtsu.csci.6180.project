@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:app/services/geo_location.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
@@ -14,6 +16,7 @@ class DropOffScreen extends StatefulWidget {
 }
 
 class _DropOffScreenState extends State<DropOffScreen> {
+  final dio = Dio();
   final TextEditingController licencePlateController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   Position? position;
@@ -45,25 +48,16 @@ class _DropOffScreenState extends State<DropOffScreen> {
     final double lat = position == null ? 0 : position!.latitude;
     final double lng = position == null ? 0 : position!.longitude;
 
-    final Map<String, dynamic> data = {
+    final GeoLocation location = GeoLocation(lng: position!.longitude, lat: position!.latitude);
+
+    Response response = await dio.post('${Config.domain.scheme}://${Config.domain.host}/tickets', data: {
       'licencePlate': licencePlate,
       'name': name,
-      'lng': lng,
-      'lat': lat,
-    };
-
-    String endpoint = '${Config.domain.scheme}://${Config.domain.host}/tickets';
-    final response = await http.post(
-      Uri.parse(endpoint),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(data),
-    );
+      'geoLocation': location.toJson(),
+    });
 
     if (response.statusCode == 200) {
-      // Car added successfully, handle the response as needed.
-    } else {
-      // Handle errors here
-      print('Failed to add car: ${response.statusCode}');
+      Navigator.of(context).pop();
     }
   }
 
@@ -107,9 +101,7 @@ class _DropOffScreenState extends State<DropOffScreen> {
               controller: nameController,
               decoration: const InputDecoration(labelText: 'Name'),
             ),
-            position == null
-                ? Text('Searching Poistion')
-                : Text('Found Position'),
+            position == null ? Text('Searching Poistion') : Text('Found Position'),
             // Display the map
             ElevatedButton(
               onPressed: addCar,

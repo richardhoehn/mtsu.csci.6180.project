@@ -36,7 +36,7 @@ class TicketView(MethodView):
 
 
     def post(self):
-        data = request.get_json() # This is the Payload details from the APP
+        data = request.json # This is the Payload details from the APP
         ticket = self.ticket_model.add(data)
         return self.get(ticket['id'])
     
