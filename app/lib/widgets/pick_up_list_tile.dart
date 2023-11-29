@@ -1,34 +1,35 @@
 import 'package:app/screens/ticket.dart';
 import 'package:app/services/ticket.dart';
+import 'package:app/widgets/ticket_image.dart';
 import 'package:flutter/material.dart';
 
 class PickUpListTileWidget extends StatelessWidget {
-  PickUpListTileWidget({super.key, required this.ticket});
-  Ticket ticket;
+  const PickUpListTileWidget({super.key, required this.ticket});
+  final Ticket ticket;
 
   @override
   Widget build(BuildContext context) {
+
+    final String subtitleString = 'Lic. Plate: ${ticket.licencePlate}\nStatus: ${ticket.ticketStatus.name}\nProblem: ${ticket.problemType.name}';
+
     return ListTile(
       title: Text(ticket.name),
-      subtitle: Text(ticket.licencePlate),
-      onTap: () {
-        print('Tapped! ${ticket.id}');
-      },
+      subtitle: Text(subtitleString),
+      leading: TicketImageWidget(ticket: ticket),
       trailing: ElevatedButton(
-          style: ButtonStyle(
+          style: const ButtonStyle(
             backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
           ),
           onPressed: () {
-            print('Button Pressed!!!');
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => TicketScreen(ticket: ticket),
               ),
             );
           },
-          child: Text(
+          child: const Text(
             'Go',
-            style: TextStyle(color: Colors.amberAccent),
+            style: TextStyle(color: Colors.white),
           )),
     );
   }

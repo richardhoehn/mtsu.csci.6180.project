@@ -1,5 +1,5 @@
 class ProblemType {
-  String id;
+  int id;
   String name;
 
   ProblemType({required this.id, required this.name});

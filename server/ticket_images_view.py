@@ -1,5 +1,6 @@
 # Imports - Externals
-from flask import jsonify, request, redirect, url_for
+import os
+from flask import flash, request, redirect, url_for
 from flask.views import MethodView
 
 # Imports - Local
@@ -7,10 +8,13 @@ from flask.views import MethodView
 class TicketImagesView(MethodView):
 
     def get(self, id): 
-        img = f"{id}.png"
-        url = url_for('images', filename=img)
-        redirect(url, code=302)
-        return {"imageUrl": url}     
+        imgUrl = f"/images/{id}.jpg"
+        print(imgUrl)
+        return redirect(imgUrl, code=302)
 
     def post(self, id):
-        return {"url": "1234.png"} 
+        file = request.files['file']
+        fileName = f"{id}.{file.filename.split('.')[1]}"
+        filePath = os.path.join('./images/', fileName)
+        file.save(filePath)
+        return {'success':True} 
