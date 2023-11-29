@@ -17,7 +17,7 @@ class Ticket {
   ProblemType problemType;
   TicketStatus ticketStatus;
   // DateTime updateAt;
-  // User updatedBy;
+  User updatedBy;
 
   Ticket({
     // required this.createAt,
@@ -29,7 +29,7 @@ class Ticket {
     required this.problemType,
     required this.ticketStatus,
     // required this.updateAt,
-    // required this.updatedBy,
+    required this.updatedBy,
   });
 
   factory Ticket.fromJson(Map<String, dynamic> json) {
@@ -43,7 +43,7 @@ class Ticket {
       problemType: ProblemType.fromJson(json['problemType']),
       ticketStatus: TicketStatus.fromJson(json['ticketStatus']),
       // updateAt: DateTime.parse(json['update']['at']),
-      // updatedBy: User.fromJson(json['update']['by']),
+      updatedBy: User.fromJson(json['update']['by']),
     );
   }
 }

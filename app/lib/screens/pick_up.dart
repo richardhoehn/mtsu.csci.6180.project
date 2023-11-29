@@ -36,6 +36,7 @@ class _PickUpScreenState extends State<PickUpScreen> {
   @override
   void initState() {
     super.initState();
+    onRefresh();
   }
 
   @override
