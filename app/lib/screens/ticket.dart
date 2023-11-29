@@ -3,6 +3,7 @@ import 'package:app/services/server_interface.dart';
 import 'package:app/services/ticket.dart';
 import 'package:app/services/ticket_status.dart';
 import 'package:app/widgets/problemTypeDropDown.dart';
+import 'package:app/widgets/take_picture_button.dart';
 import 'package:app/widgets/ticketStatusDropDown.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -70,19 +71,7 @@ class _TicketScreenState extends State<TicketScreen> {
                 ),
               ),
             ),
-            ElevatedButton(
-                style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll<Color>(
-                      Color.fromARGB(255, 12, 136, 136)),
-                ),
-                onPressed: () {
-                  print('"Take Picture" Button Press');
-                  //Logic to open the device camera and capture an image goes here.
-                },
-                child: const Text(
-                  'Take Picture',
-                  style: TextStyle(color: Colors.amberAccent),
-                )),
+            TakePictureButton(ticket: widget.ticket),
             ElevatedButton(
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll<Color>(
