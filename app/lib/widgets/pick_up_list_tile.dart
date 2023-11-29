@@ -4,8 +4,8 @@ import 'package:app/widgets/ticket_image.dart';
 import 'package:flutter/material.dart';
 
 class PickUpListTileWidget extends StatelessWidget {
-  PickUpListTileWidget({super.key, required this.ticket});
-  Ticket ticket;
+  const PickUpListTileWidget({super.key, required this.ticket});
+  final Ticket ticket;
 
   @override
   Widget build(BuildContext context) {
