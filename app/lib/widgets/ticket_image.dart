@@ -3,8 +3,8 @@ import 'package:app/util/config.dart';
 import 'package:flutter/material.dart';
 
 class TicketImageWidget extends StatelessWidget {
-  TicketImageWidget({super.key, required this.ticket});
-  Ticket ticket;
+  const TicketImageWidget({super.key, required this.ticket});
+  final Ticket ticket;
 
   @override
   Widget build(BuildContext context) {
