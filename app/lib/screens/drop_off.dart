@@ -1,12 +1,8 @@
-import 'dart:convert';
 import 'package:app/services/geo_location.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
-import 'dart:io' show Platform;
 import 'package:app/util/config.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DropOffScreen extends StatefulWidget {
   const DropOffScreen({super.key});

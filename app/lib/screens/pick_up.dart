@@ -1,12 +1,10 @@
-import 'package:app/screens/ticket.dart';
 import 'package:app/services/server_interface.dart';
 import 'package:app/services/ticket.dart';
 import 'package:app/widgets/pick_up_list_tile.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:app/util/config.dart';
-import 'dart:convert';
+
 
 class PickUpScreen extends StatefulWidget {
   const PickUpScreen({super.key});

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:app/services/geo_location.dart';
 import 'package:app/services/problem_type.dart';
 import 'package:app/services/ticket_status.dart';

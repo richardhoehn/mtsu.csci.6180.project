@@ -1,14 +1,9 @@
-import 'package:app/services/problem_type.dart';
-import 'package:app/services/server_interface.dart';
 import 'package:app/services/ticket.dart';
-import 'package:app/services/ticket_status.dart';
 import 'package:app/widgets/problemTypeDropDown.dart';
 import 'package:app/widgets/take_picture_button.dart';
 import 'package:app/widgets/ticketStatusDropDown.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:app/util/config.dart';
-import 'dart:convert';
 
 class TicketScreen extends StatefulWidget {
   TicketScreen({super.key, required this.ticket});
