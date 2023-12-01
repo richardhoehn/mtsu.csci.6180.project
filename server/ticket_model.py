@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 
 class Tickets:
     _instance = None
-
     # Make Sure we are a Singleton
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -51,4 +50,6 @@ class Tickets:
         return ticket
     
     def update(self, id, data):
+        data = data[:]
+        data['ticketStatusId'] = int(data['ticketStatusId'])
         return self.ticketTable.update(data, Query().id == id)
