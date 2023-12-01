@@ -15,6 +15,7 @@ class ValetBuddyImages {
   final String whiteTextLogo = 'assets/images/logo-with-text-white.png';
   final String squareLogo = 'assets/images/logo-square.png';
   final String squareWhiteLogo = 'assets/images/logo-square-white.png';
+  final String vehiclePlaceholder = 'assets/images/vehicle-placeholder.png';
 }
 
 class ValetBuddyDomain {

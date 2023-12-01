@@ -10,4 +10,11 @@ class GeoLocation {
       lat: (json['lat'] as num).toDouble(),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'lng': lng,
+      'lat': lat,
+    };
+  }
 }

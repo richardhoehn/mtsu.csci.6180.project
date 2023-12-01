@@ -2,6 +2,7 @@
 from tinydb import TinyDB, Query
 import uuid
 from datetime import datetime, timezone
+import json
 
 
 class Tickets:
@@ -27,6 +28,7 @@ class Tickets:
         id = str(uuid.uuid4()) # Generate a unique UUID for the new car
         create_at = datetime.now(timezone.utc).isoformat()
         zero_uuid = str(uuid.UUID(int=0))
+        geoLocation = data['geoLocation']
 
         # This is just test code - WE will pulls this from the "payload" POST event
         ticket = {
@@ -34,8 +36,8 @@ class Tickets:
             'licencePlate': data['licencePlate'],
             'name': data['name'],
             'geoLocation': {
-                'lat': data['lat'],
-                'lng': data['lng'],
+                'lat': geoLocation['lat'],
+                'lng': geoLocation['lng'],
             },
             'ticketStatusId': 1,
             'problemTypeId': 1,

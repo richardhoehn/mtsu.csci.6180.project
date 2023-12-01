@@ -14,23 +14,17 @@ class TicketView(MethodView):
 
     def get(self, id):
         if id is None:
-             return jsonify(self.ticket_model.list())
-        else:
-            ticket = self.ticket_model.find(id)
-            if ticket is not None:
-                ticket['ticketStatus'] =  TicketStatuses().find(ticket['ticketStatusId'])
-                ticket['problemType'] = ProblemTypes().find(ticket['problemTypeId'])
-                ticket['create'] = {'at': ticket['createAt'], 'by': Users().find(ticket['createBy'])}
-                ticket['update'] = {'at': ticket['updateAt'], 'by': Users().find(ticket['updateBy'])}
+            dbObjects = self.ticket_model.list()
+            ticketObjects = []
 
-                # Cleanup - Non Need JSON Objects
-                ticket.pop('ticketStatusId', None)
-                ticket.pop('problemTypeId', None)
-                ticket.pop('createAt', None)
-                ticket.pop('createBy', None)
-                ticket.pop('updateAt', None)
-                ticket.pop('updateBy', None)
-                return jsonify(ticket), 200
+            for dbObject in dbObjects:
+                ticketObjects.append(self.__parseTicket(dbObject))
+
+            return jsonify(ticketObjects), 200
+        else:
+            dbTicketObject = self.ticket_model.find(id)
+            if dbTicketObject is not None:
+                return jsonify(self.__parseTicket(dbTicketObject)), 200
             else:
                 return jsonify({"error": "Ticket Not Found"}), 404
     
@@ -42,6 +36,21 @@ class TicketView(MethodView):
 
 
     def post(self):
-        data = request.get_json() # This is the Payload details from the APP
+        data = request.json # This is the Payload details from the APP
         ticket = self.ticket_model.add(data)
         return self.get(ticket['id'])
+    
+    def __parseTicket(self, dbTicketObject):
+        dbTicketObject['ticketStatus'] =  TicketStatuses().find(dbTicketObject['ticketStatusId'])
+        dbTicketObject['problemType'] = ProblemTypes().find(dbTicketObject['problemTypeId'])
+        dbTicketObject['create'] = {'at': dbTicketObject['createAt'], 'by': Users().find(dbTicketObject['createBy'])}
+        dbTicketObject['update'] = {'at': dbTicketObject['updateAt'], 'by': Users().find(dbTicketObject['updateBy'])}
+
+        # Cleanup - Non Need JSON Objects
+        dbTicketObject.pop('ticketStatusId', None)
+        dbTicketObject.pop('problemTypeId', None)
+        dbTicketObject.pop('createAt', None)
+        dbTicketObject.pop('createBy', None)
+        dbTicketObject.pop('updateAt', None)
+        dbTicketObject.pop('updateBy', None)
+        return dbTicketObject
