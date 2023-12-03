@@ -1,10 +1,12 @@
+import 'package:app/services/user_status.dart';
+
 class User {
   String email;
   String firstName;
   String id;
   String lastName;
   String password; // Be cautious with storing passwords
-  int userStatusId;
+  UserStatus userStatus;
 
   User({
     required this.email,
@@ -12,17 +14,17 @@ class User {
     required this.id,
     required this.lastName,
     required this.password,
-    required this.userStatusId,
+    required this.userStatus,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
+      id: json['id'],
       email: json['email'],
       firstName: json['firstName'],
-      id: json['id'],
       lastName: json['lastName'],
       password: json['password'],
-      userStatusId: json['userStatusId'],
+      userStatus: UserStatus.fromJson(json['userStatus']),
     );
   }
 }

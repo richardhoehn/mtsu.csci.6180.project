@@ -9,7 +9,7 @@ class Ticket {
   final dio = Dio();
 
   // DateTime createAt;
-  // User createdBy;
+  User createdBy;
   GeoLocation geoLocation;
   String id;
   String licencePlate;
@@ -21,7 +21,7 @@ class Ticket {
 
   Ticket({
     // required this.createAt,
-    // required this.createdBy,
+    required this.createdBy,
     required this.geoLocation,
     required this.id,
     required this.licencePlate,
@@ -58,10 +58,18 @@ class Ticket {
     return this;
   }
 
+  Future<Ticket> updateGeoLocation(GeoLocation geoLocation) async {
+    this.geoLocation = geoLocation;
+    await dio.put(
+        '${Config.domain.scheme}://${Config.domain.host}/tickets/$id',
+        data: toJson());
+    return this;
+  }
+
   factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(
       // createAt: DateTime.parse(json['create']['at']),
-      // createdBy: User.fromJson(json['create']['by']),
+      createdBy: User.fromJson(json['create']['by']),
       geoLocation: GeoLocation.fromJson(json['geoLocation']),
       id: json['id'],
       licencePlate: json['licencePlate'],

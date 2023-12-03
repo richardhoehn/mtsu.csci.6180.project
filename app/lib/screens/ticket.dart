@@ -2,6 +2,7 @@ import 'package:app/services/ticket.dart';
 import 'package:app/widgets/problemTypeDropDown.dart';
 import 'package:app/widgets/take_picture_button.dart';
 import 'package:app/widgets/ticketStatusDropDown.dart';
+import 'package:app/widgets/ticket_image.dart';
 import 'package:flutter/material.dart';
 import 'package:app/util/config.dart';
 
@@ -58,31 +59,34 @@ class _TicketScreenState extends State<TicketScreen> {
               height: 100,
               child: Center(
                 child: Text(
-                  'Vehicle ' +
-                      widget.ticket.licencePlate +
-                      ' for ' +
-                      widget.ticket.name,
+                  'Vehicle ' + widget.ticket.licencePlate + ' for ' + widget.ticket.name,
                   style: TextStyle(fontSize: 24),
                 ),
               ),
             ),
             TakePictureButton(ticket: widget.ticket),
             ElevatedButton(
-                style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll<Color>(
-                      Color.fromARGB(255, 12, 136, 136)),
-                ),
-                onPressed: () {
-                  print(widget.ticket.name +
-                      "'s ticket: trying to set GPS Location."); //DEBUG
-                  //Logic to open the device camera and capture an image goes here.
-                },
-                child: const Text(
-                  'Set GPS Location',
-                  style: TextStyle(color: Colors.amberAccent),
-                )),
-            TicketStatusDropDown(ticket: widget.ticket),
-            ProblemTypeDropDown(ticket: widget.ticket)
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 12, 136, 136)),
+              ),
+              onPressed: () {
+                print(widget.ticket.name + "'s ticket: trying to set GPS Location."); //DEBUG
+                //Logic to open the device camera and capture an image goes here.
+              },
+              child: const Text(
+                'Set GPS Location',
+                style: TextStyle(color: Colors.amberAccent),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: TicketImageWidget(ticket: widget.ticket),
+              ),
+            ),
+            //TicketStatusDropDown(ticket: widget.ticket),
+            //ProblemTypeDropDown(ticket: widget.ticket)
           ],
         ),
       ),

@@ -7,6 +7,7 @@ from ticket_model import Tickets
 from ticket_status_model import TicketStatuses
 from problem_type_model import ProblemTypes
 from user_model import Users
+from user_status_model import UserStatuses
 
 class TicketView(MethodView):
     def __init__(self):
@@ -30,7 +31,6 @@ class TicketView(MethodView):
     
     def put(self, id):
         data = request.args
-        #TODO: Need To handle the geoLocation object somehow...
         self.ticket_model.update(id, data)
         return self.get(id)
 
@@ -41,10 +41,15 @@ class TicketView(MethodView):
         return self.get(ticket['id'])
     
     def __parseTicket(self, dbTicketObject):
+        print(dbTicketObject)
         dbTicketObject['ticketStatus'] =  TicketStatuses().find(dbTicketObject['ticketStatusId'])
         dbTicketObject['problemType'] = ProblemTypes().find(dbTicketObject['problemTypeId'])
         dbTicketObject['create'] = {'at': dbTicketObject['createAt'], 'by': Users().find(dbTicketObject['createBy'])}
         dbTicketObject['update'] = {'at': dbTicketObject['updateAt'], 'by': Users().find(dbTicketObject['updateBy'])}
+        
+        # Hanlde Nested Status
+        dbTicketObject['create']['by']['userStatus'] =  UserStatuses().find(dbTicketObject['create']['by']['userStatusId'])
+        dbTicketObject['update']['by']['userStatus'] =  UserStatuses().find(dbTicketObject['update']['by']['userStatusId'])
 
         # Cleanup - Non Need JSON Objects
         dbTicketObject.pop('ticketStatusId', None)

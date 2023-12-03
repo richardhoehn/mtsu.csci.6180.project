@@ -42,7 +42,7 @@ class _ProblemTypeDropDownState extends State<ProblemTypeDropDown> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       // Initial Value
-      value: widget.ticket.problemType.id.toString(),
+      //value: widget.ticket.problemType.id.toString(),
 
       // Down Arrow Icon
       icon: const Icon(Icons.keyboard_arrow_down),
