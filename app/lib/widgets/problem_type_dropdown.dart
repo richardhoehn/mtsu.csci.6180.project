@@ -3,9 +3,6 @@ import 'package:app/services/server_interface.dart';
 import 'package:app/services/ticket.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:app/util/config.dart';
-import 'dart:convert';
 
 class ProblemTypeDropDown extends StatefulWidget {
   ProblemTypeDropDown({super.key, required this.ticket});
@@ -42,7 +39,7 @@ class _ProblemTypeDropDownState extends State<ProblemTypeDropDown> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       // Initial Value
-      //value: widget.ticket.problemType.id.toString(),
+      value: widget.ticket.problemType.id.toString(),
 
       // Down Arrow Icon
       icon: const Icon(Icons.keyboard_arrow_down),
@@ -58,6 +55,7 @@ class _ProblemTypeDropDownState extends State<ProblemTypeDropDown> {
       // change button value to selected value
       onChanged: (String? newValue) {
         setState(() {
+          print(newValue);
           widget.ticket.updateProblemType(problemTypes.firstWhere(
               (problemType) => problemType.id.toString() == newValue));
         });

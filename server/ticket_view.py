@@ -30,7 +30,7 @@ class TicketView(MethodView):
                 return jsonify({"error": "Ticket Not Found"}), 404
     
     def put(self, id):
-        data = request.args
+        data = request.json
         self.ticket_model.update(id, data)
         return self.get(id)
 

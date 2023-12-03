@@ -1,7 +1,8 @@
 import 'package:app/services/ticket.dart';
 import 'package:app/widgets/problemTypeDropDown.dart';
+import 'package:app/widgets/problem_type_row.dart';
 import 'package:app/widgets/take_picture_button.dart';
-import 'package:app/widgets/ticketStatusDropDown.dart';
+import 'package:app/widgets/ticket_status_dropdown.dart';
 import 'package:app/widgets/ticket_image.dart';
 import 'package:flutter/material.dart';
 import 'package:app/util/config.dart';
@@ -86,7 +87,10 @@ class _TicketScreenState extends State<TicketScreen> {
               ),
             ),
             //TicketStatusDropDown(ticket: widget.ticket),
-            //ProblemTypeDropDown(ticket: widget.ticket)
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ProblemTypeRow(ticket: widget.ticket),
+            ),
           ],
         ),
       ),

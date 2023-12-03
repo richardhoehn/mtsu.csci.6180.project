@@ -52,6 +52,4 @@ class Tickets:
         return ticket
     
     def update(self, id, data):
-        data = data[:]
-        data['ticketStatusId'] = int(data['ticketStatusId'])
         return self.ticketTable.update(data, Query().id == id)
