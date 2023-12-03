@@ -4,15 +4,15 @@ import 'package:app/services/ticket.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class ProblemTypeDropDown extends StatefulWidget {
-  ProblemTypeDropDown({super.key, required this.ticket});
+class ProblemTypeDropdown extends StatefulWidget {
+  ProblemTypeDropdown({super.key, required this.ticket});
   Ticket ticket;
 
   @override
-  State<ProblemTypeDropDown> createState() => _ProblemTypeDropDownState();
+  State<ProblemTypeDropdown> createState() => _ProblemTypeDropdownState();
 }
 
-class _ProblemTypeDropDownState extends State<ProblemTypeDropDown> {
+class _ProblemTypeDropdownState extends State<ProblemTypeDropdown> {
   Dio dio = DioClient().dio;
   List<ProblemType> problemTypes = [];
   bool isRefreshing = false;

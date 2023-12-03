@@ -1,15 +1,14 @@
 import 'package:app/services/ticket.dart';
-import 'package:app/widgets/problemTypeDropDown.dart';
 import 'package:app/widgets/problem_type_row.dart';
 import 'package:app/widgets/take_picture_button.dart';
-import 'package:app/widgets/ticket_status_dropdown.dart';
 import 'package:app/widgets/ticket_image.dart';
+import 'package:app/widgets/ticket_status_row.dart';
 import 'package:flutter/material.dart';
 import 'package:app/util/config.dart';
 
 class TicketScreen extends StatefulWidget {
-  TicketScreen({super.key, required this.ticket});
-  Ticket ticket;
+  const TicketScreen({super.key, required this.ticket});
+  final Ticket ticket;
 
   @override
   State<TicketScreen> createState() => _TicketScreenState();
@@ -65,18 +64,26 @@ class _TicketScreenState extends State<TicketScreen> {
                 ),
               ),
             ),
-            TakePictureButton(ticket: widget.ticket),
-            ElevatedButton(
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 12, 136, 136)),
-              ),
-              onPressed: () {
-                print(widget.ticket.name + "'s ticket: trying to set GPS Location."); //DEBUG
-                //Logic to open the device camera and capture an image goes here.
-              },
-              child: const Text(
-                'Set GPS Location',
-                style: TextStyle(color: Colors.amberAccent),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TakePictureButton(ticket: widget.ticket),
+                  ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 12, 136, 136)),
+                    ),
+                    onPressed: () {
+                      print(widget.ticket.name + "'s ticket: trying to set GPS Location."); //DEBUG
+                      //Logic to open the device camera and capture an image goes here.
+                    },
+                    child: const Text(
+                      'Set GPS Location',
+                      style: TextStyle(color: Colors.amberAccent),
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -86,7 +93,10 @@ class _TicketScreenState extends State<TicketScreen> {
                 child: TicketImageWidget(ticket: widget.ticket),
               ),
             ),
-            //TicketStatusDropDown(ticket: widget.ticket),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TicketStatusRow(ticket: widget.ticket),
+            ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: ProblemTypeRow(ticket: widget.ticket),

@@ -30,7 +30,6 @@ class Tickets:
         zero_uuid = str(uuid.UUID(int=0))
         geoLocation = data['geoLocation']
 
-        # This is just test code - WE will pulls this from the "payload" POST event
         ticket = {
             'id': id,
             'licencePlate': data['licencePlate'],

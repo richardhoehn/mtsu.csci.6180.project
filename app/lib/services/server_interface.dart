@@ -25,15 +25,12 @@ class DioClient {
 
   Future<List<Ticket>> getAllTickets() async {
     List<Ticket> tickets = List.empty(growable: true);
-    final response = await _dio
-        .get('${Config.domain.scheme}://${Config.domain.host}/tickets');
+    final response = await _dio.get('${Config.domain.scheme}://${Config.domain.host}/tickets');
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      List<dynamic> responseData =
-          response.data; // Assuming the response is a JSON array
-      print(responseData);
+      List<dynamic> responseData = response.data; // Assuming the response is a JSON array
+
       tickets = responseData.map((json) => Ticket.fromJson(json)).toList();
-      print(tickets); // For debugging, to see the list of tickets
     } else {
       throw Exception(response.data);
     }
@@ -43,16 +40,12 @@ class DioClient {
 
   Future<List<ProblemType>> getAllProblemTypes() async {
     List<ProblemType> problemTypes = List.empty(growable: true);
-    final response = await _dio
-        .get('${Config.domain.scheme}://${Config.domain.host}/problemTypes');
+    final response = await _dio.get('${Config.domain.scheme}://${Config.domain.host}/problemTypes');
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      List<dynamic> responseData =
-          response.data; // Assuming the response is a JSON array
-      print(responseData);
-      problemTypes =
-          responseData.map((json) => ProblemType.fromJson(json)).toList();
-      print(problemTypes); // For debugging, to see the list of tickets
+      List<dynamic> responseData = response.data; // Assuming the response is a JSON array
+
+      problemTypes = responseData.map((json) => ProblemType.fromJson(json)).toList();
     } else {
       throw Exception(response.data);
     }
@@ -62,16 +55,12 @@ class DioClient {
 
   Future<List<TicketStatus>> getAllTicketStatuses() async {
     List<TicketStatus> ticketStatuses = List.empty(growable: true);
-    final response = await _dio
-        .get('${Config.domain.scheme}://${Config.domain.host}/ticketStatuses');
+    final response = await _dio.get('${Config.domain.scheme}://${Config.domain.host}/ticketStatuses');
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      List<dynamic> responseData =
-          response.data; // Assuming the response is a JSON array
-      print(responseData);
-      ticketStatuses =
-          responseData.map((json) => TicketStatus.fromJson(json)).toList();
-      print(ticketStatuses); // For debugging, to see the list of tickets
+      List<dynamic> responseData = response.data; // Assuming the response is a JSON array
+
+      ticketStatuses = responseData.map((json) => TicketStatus.fromJson(json)).toList();
     } else {
       throw Exception(response.data);
     }

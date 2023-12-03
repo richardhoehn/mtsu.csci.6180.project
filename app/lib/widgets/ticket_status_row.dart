@@ -1,13 +1,14 @@
 import 'package:app/services/ticket.dart';
-import 'package:app/util/config.dart';
-import 'package:app/widgets/problem_type_dropdown.dart';
+import 'package:app/widgets/ticket_status_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:app/util/config.dart';
 
-class ProblemTypeRow extends StatelessWidget {
-  const ProblemTypeRow({super.key, required this.ticket});
+
+class TicketStatusRow extends StatelessWidget {
+  const TicketStatusRow({super.key, required this.ticket});
   final Ticket ticket;
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -19,10 +20,10 @@ class ProblemTypeRow extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: const Text('Problem Type:', style:TextStyle(fontSize: 24)),
+            child: const Text('Ticket Status:', style:TextStyle(fontSize: 24)),
           ),
           const Spacer(),
-          ProblemTypeDropdown(ticket: ticket),
+          TicketStatusDropdown(ticket: ticket),
         ],
       ),
     );
