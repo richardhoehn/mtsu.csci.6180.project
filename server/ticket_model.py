@@ -51,4 +51,13 @@ class Tickets:
         return ticket
     
     def update(self, id, data):
-        return self.ticketTable.update(data, Query().id == id)
+        # Make Sure ID, Created By & At Cannot be updated
+        data.pop('id', None)
+        data.pop('createdBy', None)
+        data.pop('createdAt', None)
+
+        # Set Updated At
+        data['updatedAt'] = datetime.now(timezone.utc).isoformat()
+        
+        data_update_resp = self.ticketTable.update(data, Query().id == id)
+        return data_update_resp

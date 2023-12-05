@@ -28,5 +28,4 @@ class UserStatuses:
         return self.userStatusTable.all()
     
     def find(self, id):
-        print(id)
         return self.userStatusTable.get(Query().id == int(id))

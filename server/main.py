@@ -25,7 +25,7 @@ app      = Flask(__name__, static_folder='images')
 hostname = socket.gethostname() # Used for IP Address Setting
 IPAddr   = socket.gethostbyname(hostname) # Used for IP Address Setting
 
-print(IPAddr)
+print(f"\nServer Running at IP: *** {IPAddr} ***\n")
 
 # Register Tickets (View)
 ticket_view = TicketView.as_view('TicketView')

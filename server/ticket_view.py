@@ -41,7 +41,6 @@ class TicketView(MethodView):
         return self.get(ticket['id'])
     
     def __parseTicket(self, dbTicketObject):
-        print(dbTicketObject)
         dbTicketObject['ticketStatus'] =  TicketStatuses().find(dbTicketObject['ticketStatusId'])
         dbTicketObject['problemType'] = ProblemTypes().find(dbTicketObject['problemTypeId'])
         dbTicketObject['create'] = {'at': dbTicketObject['createAt'], 'by': Users().find(dbTicketObject['createBy'])}
@@ -58,4 +57,5 @@ class TicketView(MethodView):
         dbTicketObject.pop('createBy', None)
         dbTicketObject.pop('updateAt', None)
         dbTicketObject.pop('updateBy', None)
+        
         return dbTicketObject

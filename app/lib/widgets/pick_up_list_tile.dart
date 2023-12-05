@@ -4,8 +4,9 @@ import 'package:app/widgets/ticket_image.dart';
 import 'package:flutter/material.dart';
 
 class PickUpListTileWidget extends StatelessWidget {
-  const PickUpListTileWidget({super.key, required this.ticket});
+  const PickUpListTileWidget({super.key, required this.ticket, required this.onPressed});
   final Ticket ticket;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class PickUpListTileWidget extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => TicketScreen(ticket: ticket),
               ),
-            );
+            ).then((value) => onPressed());
           },
           child: const Text(
             'Go',

@@ -23,12 +23,12 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(
-              height: 100,
+            const Padding(
+              padding: EdgeInsets.all(10.0),
               child: Center(
                 child: Text(
                   'Welcome to Valet Buddy!',
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 36),
                 ),
               ),
             ),
@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget {
               aspectRatio: 2,
               child: Row(
                 children: [
+                  
                   AspectRatio(
                     aspectRatio: 1,
                     child: Padding(
@@ -45,37 +46,11 @@ class HomeScreen extends StatelessWidget {
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
-                              side: const BorderSide(color: Colors.blue),
+                              side: BorderSide(color: Config.colors.backgroundColor, width: 2),
                             ),
                           ),
                         ),
                         onPressed: () {
-                          print('Pick Up - Pressed');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const PickUpScreen(),
-                            ),
-                          );
-                        },
-                        child: const Text('Pick Up', style: TextStyle(fontSize: 24)),
-                      ),
-                    ),
-                  ),
-                  AspectRatio(
-                    aspectRatio: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: const BorderSide(color: Colors.blue),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          print('Drop Off - Pressed');
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const DropOffScreen(),
@@ -83,6 +58,27 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                         child: const Text('Drop Off', style: TextStyle(fontSize: 24)),
+                      ),
+                    ),
+                  ),
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(color: Config.colors.backgroundColor, width: 2),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Route route = MaterialPageRoute(builder: (context) => PickUpScreen());
+                          Navigator.push(context, route);
+                        },
+                        child: const Text('Pick Up', style: TextStyle(fontSize: 24)),
                       ),
                     ),
                   ),

@@ -1,4 +1,7 @@
 import 'package:app/services/geo_location.dart';
+import 'package:app/services/ticket.dart';
+import 'package:app/widgets/take_picture_page.dart';
+import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -41,8 +44,6 @@ class _DropOffScreenState extends State<DropOffScreen> {
   Future<void> addCar() async {
     final String licencePlate = licencePlateController.text;
     final String name = nameController.text;
-    final double lat = position == null ? 0 : position!.latitude;
-    final double lng = position == null ? 0 : position!.longitude;
 
     final GeoLocation location = GeoLocation(lng: position!.longitude, lat: position!.latitude);
 
@@ -53,7 +54,19 @@ class _DropOffScreenState extends State<DropOffScreen> {
     });
 
     if (response.statusCode == 200) {
-      Navigator.of(context).pop();
+      Ticket newTicket = Ticket.fromJson(response.data);
+
+      final cameras = await availableCameras();
+      final camera = cameras.first;
+
+      if (!mounted) {
+        print('Not Mounted!');
+        return;
+      }
+
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => TakePicturePage(camera: camera, ticket: newTicket),
+      ));
     }
   }
 
@@ -80,22 +93,28 @@ class _DropOffScreenState extends State<DropOffScreen> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(
-              height: 100,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
               child: Center(
                 child: Text(
                   'Drop Off Screen',
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 36),
                 ),
               ),
             ),
-            TextField(
-              controller: licencePlateController,
-              decoration: const InputDecoration(labelText: 'Licence Plate'),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextField(
+                controller: licencePlateController,
+                decoration: const InputDecoration(labelText: 'Licence Plate'),
+              ),
             ),
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+              ),
             ),
             position == null ? Text('Searching Poistion') : Text('Found Position'),
             // Display the map

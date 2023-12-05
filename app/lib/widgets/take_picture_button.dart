@@ -12,7 +12,6 @@ class TakePictureButton extends StatefulWidget {
 }
 
 class _TakePictureButtonState extends State<TakePictureButton> {
-  XFile? image;
 
   void _showCamera() async {
     final cameras = await availableCameras();

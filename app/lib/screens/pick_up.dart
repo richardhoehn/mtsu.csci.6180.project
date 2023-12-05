@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:app/util/config.dart';
 
-
 class PickUpScreen extends StatefulWidget {
   const PickUpScreen({super.key});
 
@@ -19,7 +18,6 @@ class _PickUpScreenState extends State<PickUpScreen> {
   bool isRefreshing = false;
   String _searchText = '';
   final TextEditingController _controller = TextEditingController();
-
 
   Future<void> onRefresh() async {
     setState(() {
@@ -41,8 +39,7 @@ class _PickUpScreenState extends State<PickUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-final _filteredTickets = tickets
+    final _filteredTickets = tickets
         .where((ticket) =>
             ticket.name.toLowerCase().contains(_searchText.toLowerCase()) ||
             ticket.licencePlate.toLowerCase().contains(_searchText.toLowerCase()))
@@ -69,23 +66,25 @@ final _filteredTickets = tickets
       body: Center(
         child: Column(
           children: [
-            const SizedBox(
-              height: 100,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
               child: Center(
                 child: Text(
                   'PickUp Screen',
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 36),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Container(
-                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Config.colors.backgroundColor, width: 2),
+                    borderRadius: const BorderRadius.all(Radius.circular(12))),
                 child: Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Search:', style: TextStyle(color: Config.colors.iconColor)),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text('Search:', style: TextStyle(fontSize: 24)),
                   ),
                   Expanded(
                     child: TextField(
@@ -94,7 +93,6 @@ final _filteredTickets = tickets
                       style: TextStyle(color: Config.colors.iconColor),
                       cursorColor: Config.colors.iconColor,
                       decoration: InputDecoration(
-                        hintText: '...',
                         hintStyle: TextStyle(color: Config.colors.iconColor),
                         border: InputBorder.none,
                         labelStyle: TextStyle(color: Config.colors.iconColor),
@@ -129,7 +127,7 @@ final _filteredTickets = tickets
                 child: ListView.builder(
                   itemCount: _filteredTickets.length,
                   itemBuilder: (context, index) {
-                    return PickUpListTileWidget(ticket: _filteredTickets[index]);
+                    return PickUpListTileWidget(ticket: _filteredTickets[index], onPressed: onRefresh);
                   },
                 ),
               ),

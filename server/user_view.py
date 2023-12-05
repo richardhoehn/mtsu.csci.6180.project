@@ -23,7 +23,6 @@ class UserView(MethodView):
             else:
                 return jsonify({"error": "user Not Found"}), 404
     
-    #TODO: Need Auth here... 
     def post(self):
         data = request.get_json() # This is the Payload details from the APP
         email = data['email']
@@ -34,5 +33,4 @@ class UserView(MethodView):
             return self.get(user['id'])
         else:
             return jsonify({"error": "user Not Found"}), 401
-            return jsonify(user)
         
