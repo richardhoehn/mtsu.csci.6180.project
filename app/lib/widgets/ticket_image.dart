@@ -20,7 +20,7 @@ class TicketImageWidget extends StatelessWidget {
             aspectRatio: 1,
             child: FadeInImage.assetNetwork(
               placeholder: Config.images.vehiclePlaceholder,
-              image: '${Config.domain.scheme}://${Config.domain.host}/tickets/${ticket.id}/images',
+              image: '${Config.domain.scheme}://${Config.domain.host}/tickets/${ticket.id}/images?${DateTime.now().toIso8601String()}',
               imageErrorBuilder: (context, error, stackTrace) {
                 return Image.asset(Config.images.vehiclePlaceholder, fit: BoxFit.fitWidth);
               },

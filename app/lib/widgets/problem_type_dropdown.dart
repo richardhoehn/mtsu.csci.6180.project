@@ -17,6 +17,14 @@ class _ProblemTypeDropdownState extends State<ProblemTypeDropdown> {
   List<ProblemType> problemTypes = [];
   bool isRefreshing = false;
 
+  Future<void> update(int problemTypeId) async {
+    print("Updating Problem Type: $problemTypeId");
+    await widget.ticket.updateProblemType(problemTypes.firstWhere((problemType) => problemType.id == problemTypeId));
+    setState(() {
+      print("Complted Problem Type Update!");
+    });
+  }
+
   Future<void> onRefresh() async {
     setState(() {
       isRefreshing = true;
@@ -37,28 +45,21 @@ class _ProblemTypeDropdownState extends State<ProblemTypeDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      // Initial Value
-      value: widget.ticket.problemType.id.toString(),
+    return DropdownButton<int>(
+      underline: const SizedBox(),
+      value: widget.ticket.problemType.id, // Initial Value
+      icon: const Icon(Icons.keyboard_arrow_down, color: Colors.amberAccent),
 
-      // Down Arrow Icon
-      icon: const Icon(Icons.keyboard_arrow_down),
-
-      // Array list of items
       items: problemTypes.map((ProblemType problemType) {
         return DropdownMenuItem(
-          value: problemType.id.toString(),
-          child: Text(problemType.name),
+          value: problemType.id,
+          child: Text(problemType.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         );
       }).toList(),
-      // After selecting the desired option,it will
-      // change button value to selected value
-      onChanged: (String? newValue) {
-        setState(() {
-          print(newValue);
-          widget.ticket.updateProblemType(problemTypes.firstWhere(
-              (problemType) => problemType.id.toString() == newValue));
-        });
+
+      onChanged: (int? newValue) async {
+        print('OnChange: $newValue');
+        await update(newValue!);
       },
     );
   }

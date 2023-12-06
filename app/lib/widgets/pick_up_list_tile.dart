@@ -10,28 +10,57 @@ class PickUpListTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final String subtitleString = 'Lic. Plate: ${ticket.licencePlate}\nStatus: ${ticket.ticketStatus.name}\nProblem: ${ticket.problemType.name}';
+    final String subtitleString =
+        'Lic. Plate: ${ticket.licencePlate}\nStatus: ${ticket.ticketStatus.name}\nProblem: ${ticket.problemType.name}';
 
     return ListTile(
-      title: Text(ticket.name),
-      subtitle: Text(subtitleString),
+      title: Text(
+        ticket.name,
+        style: const TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold, fontSize: 20),
+      ),
+      subtitle: RichText(
+        text: TextSpan(
+          text: 'Lic. Plate: ',
+          style: DefaultTextStyle.of(context).style,
+          children: <TextSpan>[
+            TextSpan(
+              text: ticket.licencePlate,
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amberAccent, fontSize: 18),
+            ),
+          ],
+        ),
+      ),
       leading: TicketImageWidget(ticket: ticket),
-      trailing: ElevatedButton(
-          style: const ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
-          ),
-          onPressed: () {
-            Navigator.of(context).push(
+      trailing: RichText(
+        textAlign: TextAlign.end,
+        text: TextSpan(
+          text: 'Status: ',
+          style: DefaultTextStyle.of(context).style,
+          children: <TextSpan>[
+            TextSpan(
+              text: ticket.ticketStatus.name,
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amberAccent, fontSize: 18),
+            ),
+            const TextSpan(text: '\n'),
+            ticket.problemType.id != 1 ? TextSpan(
+              text: 'Problem: ',
+            ) : TextSpan(),
+            ticket.problemType.id != 1 ? TextSpan(
+              text: ticket.problemType.name,
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amberAccent, fontSize: 18),
+            ) : TextSpan(),
+          ],
+        ),
+      ),
+      onTap: () {
+        Navigator.of(context)
+            .push(
               MaterialPageRoute(
                 builder: (context) => TicketScreen(ticket: ticket),
               ),
-            ).then((value) => onPressed());
-          },
-          child: const Text(
-            'Go',
-            style: TextStyle(color: Colors.white),
-          )),
+            )
+            .then((value) => onPressed());
+      },
     );
   }
 }

@@ -23,6 +23,18 @@ class DioClient {
 
   Dio get dio => _dio;
 
+  Future<Ticket> getTicket(String id) async {
+    Ticket ticket;
+    final response = await _dio.get('${Config.domain.scheme}://${Config.domain.host}/tickets/$id');
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      ticket = Ticket.fromJson(response.data);
+    } else {
+      throw Exception(response.data);
+    }
+    return ticket;
+  }
+
   Future<List<Ticket>> getAllTickets() async {
     List<Ticket> tickets = List.empty(growable: true);
     final response = await _dio.get('${Config.domain.scheme}://${Config.domain.host}/tickets');

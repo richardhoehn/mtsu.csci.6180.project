@@ -85,23 +85,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blue,
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: const MapSample(),
-                  ),
-                ),
-              ),
-            ),
+            
             const SizedBox(height: 20),
           ],
         ),

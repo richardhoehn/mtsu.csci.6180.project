@@ -1,4 +1,3 @@
-
 import 'package:app/services/server_interface.dart';
 import 'package:app/services/ticket.dart';
 import 'package:app/services/ticket_status.dart';
@@ -17,6 +16,14 @@ class _TicketStatusDropdownState extends State<TicketStatusDropdown> {
   Dio dio = DioClient().dio;
   List<TicketStatus> ticketStatuses = [];
   bool isRefreshing = false;
+
+  Future<void> update(int ticketStatusId) async {
+    print("Updating Ticket Status: $ticketStatusId");
+    await widget.ticket.updateTicketStatus(ticketStatuses.firstWhere((ticketStatus) => ticketStatus.id == ticketStatusId));
+    setState(() {
+      print("Completed Ticket Status Update!");
+    });
+  }
 
   Future<void> onRefresh() async {
     setState(() {
@@ -38,27 +45,21 @@ class _TicketStatusDropdownState extends State<TicketStatusDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      // Initial Value
-      value: widget.ticket.ticketStatus.id.toString(),
+    return DropdownButton<int>(
+      underline: const SizedBox(),
+      value: widget.ticket.ticketStatus.id, // Initial Value
+      icon: const Icon(Icons.keyboard_arrow_down, color: Colors.amberAccent),
 
-      // Down Arrow Icon
-      icon: const Icon(Icons.keyboard_arrow_down),
-
-      // Array list of items
       items: ticketStatuses.map((TicketStatus ticketStatus) {
         return DropdownMenuItem(
-          value: ticketStatus.id.toString(),
-          child: Text(ticketStatus.name),
+          value: ticketStatus.id,
+          child: Text(ticketStatus.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         );
       }).toList(),
-      // After selecting the desired option,it will
-      // change button value to selected value
-      onChanged: (String? newValue) {
-        setState(() {
-          widget.ticket.updateTicketStatus(ticketStatuses.firstWhere(
-              (ticketStatus) => ticketStatus.id.toString() == newValue));
-        });
+
+      onChanged: (int? newValue) async {
+        print('OnChange: $newValue');
+        await update(newValue!);
       },
     );
   }

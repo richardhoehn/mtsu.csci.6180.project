@@ -81,7 +81,9 @@ class _PickUpScreenState extends State<PickUpScreen> {
                 decoration: BoxDecoration(
                     border: Border.all(color: Config.colors.backgroundColor, width: 2),
                     borderRadius: const BorderRadius.all(Radius.circular(12))),
-                child: Row(children: [
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
                   const Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text('Search:', style: TextStyle(fontSize: 24)),
@@ -89,8 +91,9 @@ class _PickUpScreenState extends State<PickUpScreen> {
                   Expanded(
                     child: TextField(
                       controller: _controller,
+                      textAlign: TextAlign.center,
                       textAlignVertical: TextAlignVertical.center,
-                      style: TextStyle(color: Config.colors.iconColor),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       cursorColor: Config.colors.iconColor,
                       decoration: InputDecoration(
                         hintStyle: TextStyle(color: Config.colors.iconColor),
@@ -104,7 +107,7 @@ class _PickUpScreenState extends State<PickUpScreen> {
                       },
                     ),
                   ),
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () {
                       setState(() {
                         _searchText = '';

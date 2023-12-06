@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class Ticket {
   final dio = Dio();
 
-  // DateTime createAt;
+  DateTime createAt;
   User createdBy;
   GeoLocation geoLocation;
   String id;
@@ -16,11 +16,11 @@ class Ticket {
   String name;
   ProblemType problemType;
   TicketStatus ticketStatus;
-  // DateTime updateAt;
+  DateTime updateAt;
   User updatedBy;
 
   Ticket({
-    // required this.createAt,
+    required this.createAt,
     required this.createdBy,
     required this.geoLocation,
     required this.id,
@@ -28,7 +28,7 @@ class Ticket {
     required this.name,
     required this.problemType,
     required this.ticketStatus,
-    // required this.updateAt,
+    required this.updateAt,
     required this.updatedBy,
   });
 
@@ -43,6 +43,7 @@ class Ticket {
   }
 
   Future<Ticket> updateProblemType(ProblemType problemType) async {
+    print('Updating Problem Type');
     this.problemType = problemType;
     await dio.put(
         '${Config.domain.scheme}://${Config.domain.host}/tickets/$id',
@@ -51,6 +52,7 @@ class Ticket {
   }
 
  Future<Ticket> updateTicketStatus(TicketStatus ticketStatus) async {
+  print('Updating Ticket Status');
     this.ticketStatus = ticketStatus;
     await dio.put(
         '${Config.domain.scheme}://${Config.domain.host}/tickets/$id',
@@ -59,6 +61,7 @@ class Ticket {
   }
 
   Future<Ticket> updateGeoLocation(GeoLocation geoLocation) async {
+    print('Updating Geo Location');
     this.geoLocation = geoLocation;
     await dio.put(
         '${Config.domain.scheme}://${Config.domain.host}/tickets/$id',
@@ -68,7 +71,7 @@ class Ticket {
 
   factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(
-      // createAt: DateTime.parse(json['create']['at']),
+      createAt: DateTime.parse(json['create']['at']),
       createdBy: User.fromJson(json['create']['by']),
       geoLocation: GeoLocation.fromJson(json['geoLocation']),
       id: json['id'],
@@ -76,7 +79,7 @@ class Ticket {
       name: json['name'],
       problemType: ProblemType.fromJson(json['problemType']),
       ticketStatus: TicketStatus.fromJson(json['ticketStatus']),
-      // updateAt: DateTime.parse(json['update']['at']),
+      updateAt: DateTime.parse(json['update']['at']),
       updatedBy: User.fromJson(json['update']['by']),
     );
   }

@@ -57,5 +57,5 @@ class TicketView(MethodView):
         dbTicketObject.pop('createBy', None)
         dbTicketObject.pop('updateAt', None)
         dbTicketObject.pop('updateBy', None)
-        
+
         return dbTicketObject

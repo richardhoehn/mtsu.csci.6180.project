@@ -19,7 +19,6 @@ class _DropOffScreenState extends State<DropOffScreen> {
   final TextEditingController licencePlateController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   Position? position;
-  //GoogleMapController? mapController;
 
   @override
   void initState() {

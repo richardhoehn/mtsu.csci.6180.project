@@ -37,14 +37,16 @@ class _TakePicturePageState extends State<TakePicturePage> {
   Future<void> uploadImage(File file) async {
     String fileName = file.path.split('/').last;
     FormData formData = FormData.fromMap({
-        "file":
-            await MultipartFile.fromFile(file.path, filename:fileName),
+      "file": await MultipartFile.fromFile(file.path, filename: fileName),
     });
-    Response response = await dio.post('${Config.domain.scheme}://${Config.domain.host}/tickets/${widget.ticket.id}/images', data: formData);
-    
-    print(response.statusCode);
+
+    Response resp = await dio.post('${Config.domain.scheme}://${Config.domain.host}/tickets/${widget.ticket.id}/images',
+        data: formData);
+
+    print("Picture Upload Resp: ${resp.statusCode}");
+
     return;
-}
+  }
 
   void _takePicture(BuildContext context) async {
     try {
@@ -52,7 +54,7 @@ class _TakePicturePageState extends State<TakePicturePage> {
         XFile image = await _cameraController.takePicture();
         if (!mounted) return;
 
-        print(uploadImage(File(image.path)));
+        await uploadImage(File(image.path));
 
         Navigator.pop(context, image);
       } else {
@@ -78,10 +80,9 @@ class _TakePicturePageState extends State<TakePicturePage> {
         ),
         toolbarHeight: 55,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back), // You can use any icon you prefer
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Add your back button logic here
-            Navigator.of(context).pop(); // Typically used to navigate back
+            Navigator.of(context).pop();
           },
         ),
       ),
@@ -97,13 +98,10 @@ class _TakePicturePageState extends State<TakePicturePage> {
                       padding: const EdgeInsets.all(20),
                       child: Container(
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Config.colors.backgroundColor,
-                                width: 2
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                              border: Border.all(color: Config.colors.backgroundColor, width: 2),
+                              borderRadius: const BorderRadius.all(Radius.circular(20))),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: const BorderRadius.all(Radius.circular(20)),
                             child: AspectRatio(
                               aspectRatio: 1,
                               child: CameraPreview(_cameraController),
@@ -112,10 +110,16 @@ class _TakePicturePageState extends State<TakePicturePage> {
                     ),
                   ),
                   ElevatedButton(
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      backgroundColor: Config.colors.backgroundColor,
+                    ),
                     onPressed: () => _takePicture(context),
-                    child: Text('Take Picture'),
+                    child: const Text('Take Picture of Vehicle', style: TextStyle(color: Colors.white),),
                   ),
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                 ],
               ),
             );

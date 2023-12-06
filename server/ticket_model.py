@@ -19,7 +19,7 @@ class Tickets:
         self.ticketQuery = Query()
     
     def list(self):
-        return self.ticketTable.all()
+        return self.ticketTable.search(Query().ticketStatusId != 5)
     
     def find(self, id):
         return self.ticketTable.get(Query().id == id)
@@ -53,11 +53,11 @@ class Tickets:
     def update(self, id, data):
         # Make Sure ID, Created By & At Cannot be updated
         data.pop('id', None)
-        data.pop('createdBy', None)
-        data.pop('createdAt', None)
+        data.pop('createBy', None)
+        data.pop('createAt', None)
 
         # Set Updated At
-        data['updatedAt'] = datetime.now(timezone.utc).isoformat()
-        
+        data['updateAt'] = datetime.now(timezone.utc).isoformat()
+
         data_update_resp = self.ticketTable.update(data, Query().id == id)
         return data_update_resp
